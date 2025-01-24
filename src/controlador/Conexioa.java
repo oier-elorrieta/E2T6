@@ -8,6 +8,8 @@ public class Conexioa {
     	ArrayList<String> emaitza = new ArrayList<String>();
         try {
 
+        	Class.forName("com.mysql.jdbc.Driver");
+        	
             // Establecemos la conexión con la BD
             Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/empresa", "root", "");
 
@@ -27,6 +29,9 @@ public class Conexioa {
             sentencia.close(); // Cerrar Statement
             conexion.close(); // Cerrar conexión
             return emaitza;
+        } catch (ClassNotFoundException cn){
+        	cn.printStackTrace();
+        	return emaitza;
         } catch (SQLException e) {
             e.printStackTrace();
             emaitza.add("Errore bat egon da");
