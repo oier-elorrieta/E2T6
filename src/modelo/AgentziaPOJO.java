@@ -67,5 +67,4 @@ public class AgentziaPOJO {
 	public void setMota(String mota) {
 		this.mota = mota;
 	}
-	
 }

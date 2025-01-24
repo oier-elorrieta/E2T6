@@ -1,5 +1,4 @@
 package modelo;
-
 import java.util.Date;
 
 public class BidaiaPOJO {
@@ -13,6 +12,7 @@ public class BidaiaPOJO {
 	private String herrialdea;
 	private String deskirbapena;
 	private String ezDaudenZerbitzuak;
+	
 	
 	public BidaiaPOJO(int id, String izena, String mota, Date bidaia_hasi, Date bidaia_amaitu, int egun_kop,
 			String herrialdea, String deskirbapena, String ezDaudenZerbitzuak) {
