@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Conexioa {
-    public static void main(String[] args) {
+    public static ArrayList<String> conexiaoBueltatu() {
     	ArrayList<String> emaitza = new ArrayList<String>();
         try {
 
@@ -26,11 +26,11 @@ public class Conexioa {
             resul.close(); // Cerrar ResultSet
             sentencia.close(); // Cerrar Statement
             conexion.close(); // Cerrar conexión
-            for (int i = 0; i < emaitza.size(); i++) {
-				System.out.println(emaitza.get(i));
-			}
+            return emaitza;
         } catch (SQLException e) {
             e.printStackTrace();
+            emaitza.add("Errore bat egon da");
+            return emaitza;
         }
     }
 }
