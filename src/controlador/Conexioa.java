@@ -8,7 +8,7 @@ public class Conexioa {
     	ArrayList<String> emaitza = new ArrayList<String>();
         try {
 
-        	Class.forName("com.mysql.jdbc.Driver");
+        	Class.forName("com.mysql.cj.jdbc.Driver");
         	
             // Establecemos la conexión con la BD
             Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/empresa", "root", "");
