@@ -1,11 +1,11 @@
 package modelo;
 
-public class HerrialdePOJO {
+public class Herrialde {
 	
 	private String id;
 	private String izena;
 	
-	public HerrialdePOJO(String id, String izena) {
+	public Herrialde(String id, String izena) {
 		this.id = id;
 		this.izena = izena;
 	}
