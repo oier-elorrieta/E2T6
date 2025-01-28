@@ -1,11 +1,11 @@
 package modelo;
 
-public class AireportuPOJO {
+public class Aireportu {
 	
 	private String id;
 	private String izena;
 	
-	public AireportuPOJO(String id, String izena) {
+	public Aireportu(String id, String izena) {
 		this.id = id;
 		this.izena = izena;
 	}
