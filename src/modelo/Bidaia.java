@@ -2,7 +2,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class BidaiaPOJO {
+public class Bidaia {
 	
 	private int id;
 	private String izena;
@@ -13,10 +13,10 @@ public class BidaiaPOJO {
 	private String herrialdea;
 	private String deskirbapena;
 	private String ezDaudenZerbitzuak;
-	private ArrayList<ZerbitzuakPOJO> Zerbitzuak;
+	private ArrayList<Zerbitzuak> Zerbitzuak;
 	
 	
-	public BidaiaPOJO(int id, String izena, String mota, Date bidaia_hasi, Date bidaia_amaitu, int egun_kop,
+	public Bidaia(int id, String izena, String mota, Date bidaia_hasi, Date bidaia_amaitu, int egun_kop,
 			String herrialdea, String deskirbapena, String ezDaudenZerbitzuak) {
 		this.id = id;
 		this.izena = izena;
