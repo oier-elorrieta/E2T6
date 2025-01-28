@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.Date;
 
-public class Zerbitzuak {
+public class ZerbitzuakPOJO {
 	
 	private String hegaldiIzena;
 	private String jatorria;
@@ -36,7 +36,7 @@ public class Zerbitzuak {
 	private Date jardueraData;
 	private double jardueraPrezioa;
 	
-	public Zerbitzuak(String hegaldiIzena, String jatorria, String helmuga, Date hegaldiData, String kod,
+	public ZerbitzuakPOJO(String hegaldiIzena, String jatorria, String helmuga, Date hegaldiData, String kod,
 			String aerolinea, double hegaldiPrezioa, Date hegaldiIrteera, Date hegaldiIraupena) {
 		this.hegaldiIzena = hegaldiIzena;
 		this.jatorria = jatorria;
@@ -49,7 +49,7 @@ public class Zerbitzuak {
 		this.hegaldiIraupena = hegaldiIraupena;
 	}
 
-	public Zerbitzuak(String hegaldiIzena, String jatorria, String helmuga, Date hegaldiData, String kod,
+	public ZerbitzuakPOJO(String hegaldiIzena, String jatorria, String helmuga, Date hegaldiData, String kod,
 			String aerolinea, double hegaldiPrezioa, Date hegaldiIrteera, Date hegaldiIraupena, String jatorriaBuelta,
 			String helmugaBuelta, Date dataBuelta, String kodBuelta, String aerolineaBuelta,
 			double hegaldiPrezioaBuelta, Date irteeraBuelta, Date iraupenaBbuelta) {
@@ -72,7 +72,7 @@ public class Zerbitzuak {
 		this.iraupenaBbuelta = iraupenaBbuelta;
 	}
 	
-	public Zerbitzuak(int idOstatua, String ostatuIzena, String logela, String hiria, Date ostatuSarrera,
+	public ZerbitzuakPOJO(int idOstatua, String ostatuIzena, String logela, String hiria, Date ostatuSarrera,
 			Date ostatuIrteera, double ostatuPrezioa) {
 		this.idOstatua = idOstatua;
 		this.ostatuIzena = ostatuIzena;
@@ -83,7 +83,7 @@ public class Zerbitzuak {
 		this.ostatuPrezioa = ostatuPrezioa;
 	}
 
-	public Zerbitzuak(int jardueraId, String jardueraIzena, String jardueraDeskribapena, Date jardueraData,
+	public ZerbitzuakPOJO(int jardueraId, String jardueraIzena, String jardueraDeskribapena, Date jardueraData,
 			double jardueraPrezioa) {
 		this.jardueraId = jardueraId;
 		this.jardueraIzena = jardueraIzena;

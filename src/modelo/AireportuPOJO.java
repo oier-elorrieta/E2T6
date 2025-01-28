@@ -25,5 +25,4 @@ public class AireportuPOJO {
 	public void setIzena(String izena) {
 		this.izena = izena;
 	}
-
 }

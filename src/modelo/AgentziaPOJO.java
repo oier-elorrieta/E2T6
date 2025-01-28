@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.ArrayList; 
+
 public class AgentziaPOJO {
 	
 	private String izena;
@@ -8,6 +10,7 @@ public class AgentziaPOJO {
 	private int langileKop;
 	private String logoa;
 	private String mota;
+	private ArrayList<BidaiaPOJO> Bidaiak;
 
 	public AgentziaPOJO(String izena, String pasahitza, String markaKolorea, int langileKop, String logoa,
 			String mota) {
