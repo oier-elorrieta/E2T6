@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controlador.Main;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -19,7 +24,7 @@ public class Login extends JFrame {
 
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -32,6 +37,7 @@ public class Login extends JFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
@@ -66,11 +72,23 @@ public class Login extends JFrame {
 		contentPane.add(textPasahitza);
 		
 		JButton btnSaioaHazi = new JButton("Saioa hazi");
+		btnSaioaHazi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textAgentzia.getText().equals("admin") && textAgentzia.getText().equals("admin")) {
+					Main.BidaiakIreki();
+				}
+			}
+		});
 		btnSaioaHazi.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnSaioaHazi.setBounds(75, 161, 158, 23);
 		contentPane.add(btnSaioaHazi);
 		
 		JButton btnAgentziaBerria = new JButton("Agentzia berria");
+		btnAgentziaBerria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.agentziaBerriaIreki();
+			}
+		});
 		btnAgentziaBerria.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnAgentziaBerria.setBounds(268, 161, 158, 23);
 		contentPane.add(btnAgentziaBerria);

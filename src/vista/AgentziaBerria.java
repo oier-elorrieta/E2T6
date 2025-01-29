@@ -5,11 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controlador.Main;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AgentziaBerria extends JFrame {
 
@@ -100,6 +105,11 @@ public class AgentziaBerria extends JFrame {
 		contentPane.add(btnGorde);
 		
 		JButton btnUtzi = new JButton("Utzi");
+		btnUtzi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.agentziaBerriaUtzi();
+			}
+		});
 		btnUtzi.setBounds(281, 291, 139, 28);
 		contentPane.add(btnUtzi);
 	}
