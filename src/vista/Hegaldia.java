@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JLabel;
@@ -235,6 +234,14 @@ public class Hegaldia extends JFrame {
 		btnUtzi.setBounds(147, 457, 89, 23);
 		contentPane.add(btnUtzi);
 		
+		JDateChooser JoatekoData = new JDateChooser();
+		JoatekoData.setBounds(172,239,150,20);
+		contentPane.add(JoatekoData);
+		
+		JDateChooser ItzultzekoData = new JDateChooser();
+		ItzultzekoData.setBounds(493, 235, 150, 20);
+		contentPane.add(ItzultzekoData);
+		
 		comboBoxIbilbidea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBoxIbilbidea.getSelectedItem().equals("Joan eta Etorri")) {
@@ -248,7 +255,7 @@ public class Hegaldia extends JFrame {
 					lblIraupenaItzuli.setVisible(true);
 					comboBoxJatorrizkoaireportuaItzuli.setVisible(true);
 					comboBoxHelmugakoAireportuaItzuli.setVisible(true);
-					textItzulekoData.setVisible(true);
+					ItzultzekoData.setVisible(true);
 					textHegaldiKodItzuli.setVisible(true);
 					textAerolineaItzuli.setVisible(true);
 					textItzuleraOrdua.setVisible(true);
@@ -264,7 +271,7 @@ public class Hegaldia extends JFrame {
 					lblIraupenaItzuli.setVisible(false);
 					comboBoxJatorrizkoaireportuaItzuli.setVisible(false);
 					comboBoxHelmugakoAireportuaItzuli.setVisible(false);
-					textItzulekoData.setVisible(false);
+					ItzultzekoData.setVisible(false);
 					textHegaldiKodItzuli.setVisible(false);
 					textAerolineaItzuli.setVisible(false);
 					textItzuleraOrdua.setVisible(false);
@@ -287,9 +294,5 @@ public class Hegaldia extends JFrame {
 		textAerolineaItzuli.setVisible(false);
 		textItzuleraOrdua.setVisible(false);
 		textIraupenaItzuli.setVisible(false);
-		
-		JDateChooser JoatekoData = new JDateChooser();
-		JoatekoData.setBounds(100,100,100,100);
-		contentPane.add(JoatekoData);
 	}
 }
