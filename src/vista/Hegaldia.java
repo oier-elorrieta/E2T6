@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -20,7 +24,6 @@ public class Hegaldia extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textEizena;
-	private JTextField textJoatekoData;
 	private JTextField textHegaldiKod;
 	private JTextField textAerolinea;
 	private JTextField textIrteeraOrdua;
@@ -29,7 +32,6 @@ public class Hegaldia extends JFrame {
 	private JTextField textItzuleraOrdua;
 	private JTextField textField_2;
 	private JTextField textAerolineaItzuli;
-	private JTextField textItzulekoData;
 
 	/**
 	 * Launch the application.
@@ -104,11 +106,6 @@ public class Hegaldia extends JFrame {
 		contentPane.add(textEizena);
 		textEizena.setColumns(10);
 		
-		textJoatekoData = new JTextField();
-		textJoatekoData.setColumns(10);
-		textJoatekoData.setBounds(172, 239, 150, 20);
-		contentPane.add(textJoatekoData);
-		
 		textHegaldiKod = new JTextField();
 		textHegaldiKod.setColumns(10);
 		textHegaldiKod.setBounds(172, 267, 150, 20);
@@ -171,11 +168,6 @@ public class Hegaldia extends JFrame {
 		textHegaldiKodItzuli.setColumns(10);
 		textHegaldiKodItzuli.setBounds(493, 267, 150, 20);
 		contentPane.add(textHegaldiKodItzuli);
-		
-		textItzulekoData = new JTextField();
-		textItzulekoData.setColumns(10);
-		textItzulekoData.setBounds(493, 239, 150, 20);
-		contentPane.add(textItzulekoData);
 		
 		JComboBox<String> comboBoxHelmugakoAireportuaItzuli = new JComboBox<>();
 		comboBoxHelmugakoAireportuaItzuli.setBounds(493, 208, 150, 20);
@@ -291,10 +283,13 @@ public class Hegaldia extends JFrame {
 		lblIraupenaItzuli.setVisible(false);
 		comboBoxJatorrizkoaireportuaItzuli.setVisible(false);
 		comboBoxHelmugakoAireportuaItzuli.setVisible(false);
-		textItzulekoData.setVisible(false);
 		textHegaldiKodItzuli.setVisible(false);
 		textAerolineaItzuli.setVisible(false);
 		textItzuleraOrdua.setVisible(false);
 		textIraupenaItzuli.setVisible(false);
+		
+		JDateChooser JoatekoData = new JDateChooser();
+		JoatekoData.setBounds(100,100,100,100);
+		contentPane.add(JoatekoData);
 	}
 }
