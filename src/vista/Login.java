@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Main;
+import modelo.DAOak.Agentzia;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -70,6 +71,7 @@ public class Login extends JFrame {
 	                    }
 					});
 					dispose();
+					
 				}
 			}
 		});

@@ -27,5 +27,10 @@ public class Main {
                 }
             }
         });
+        
+        modelo.POJOak.Agentzia agentzia = new modelo.POJOak.Agentzia();
+        agentzia = modelo.DAOak.Agentzia.cargatuAgentziak();
+        System.out.println(agentzia.toString());
+        
     }
 }

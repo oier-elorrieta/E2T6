@@ -10,13 +10,11 @@ public class Agentzia {
 	private String markaKolorea;
 	private String erabiltzailea;
 	private String pasahitza;
-	private int langileKop;
+	private String langileKop;
 	private String mota;	
-	private ArrayList<Bidaia> Bidaiak;
 
 	public Agentzia(int id, String izena, String logoa, String markaKolorea, String erabiltzailea, String pasahitza,
-			int langileKop, String mota, ArrayList<Bidaia> bidaiak) {
-		super();
+			String langileKop, String mota) {
 		this.id = id;
 		this.izena = izena;
 		this.logoa = logoa;
@@ -25,7 +23,10 @@ public class Agentzia {
 		this.pasahitza = pasahitza;
 		this.langileKop = langileKop;
 		this.mota = mota;
-		Bidaiak = bidaiak;
+	}
+
+	public Agentzia() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
@@ -76,11 +77,11 @@ public class Agentzia {
 		this.pasahitza = pasahitza;
 	}
 
-	public int getLangileKop() {
+	public String getLangileKop() {
 		return langileKop;
 	}
 
-	public void setLangileKop(int langileKop) {
+	public void setLangileKop(String langileKop) {
 		this.langileKop = langileKop;
 	}
 
@@ -92,12 +93,10 @@ public class Agentzia {
 		this.mota = mota;
 	}
 
-	public ArrayList<Bidaia> getBidaiak() {
-		return Bidaiak;
+	@Override
+	public String toString() {
+		return "Agentzia [id=" + id + ", izena=" + izena + ", logoa=" + logoa + ", markaKolorea=" + markaKolorea
+				+ ", erabiltzailea=" + erabiltzailea + ", pasahitza=" + pasahitza + ", langileKop=" + langileKop
+				+ ", mota=" + mota + "]";
 	}
-
-	public void setBidaiak(ArrayList<Bidaia> bidaiak) {
-		Bidaiak = bidaiak;
-	}
-
 }
