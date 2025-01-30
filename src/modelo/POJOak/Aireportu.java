@@ -1,11 +1,11 @@
-package modelo;
+package modelo.POJOak;
 
-public class Herrialde {
+public class Aireportu {
 	
 	private String id;
 	private String izena;
 	
-	public Herrialde(String id, String izena) {
+	public Aireportu(String id, String izena) {
 		this.id = id;
 		this.izena = izena;
 	}
@@ -25,5 +25,4 @@ public class Herrialde {
 	public void setIzena(String izena) {
 		this.izena = izena;
 	}
-	
 }

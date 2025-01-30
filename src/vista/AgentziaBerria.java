@@ -107,7 +107,17 @@ public class AgentziaBerria extends JFrame {
 		JButton btnUtzi = new JButton("Utzi");
 		btnUtzi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.agentziaBerriaUtzi();
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Login frame = new Login();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+                    }
+				});
+				dispose();
 			}
 		});
 		btnUtzi.setBounds(281, 291, 139, 28);

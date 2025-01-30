@@ -22,22 +22,6 @@ public class Login extends JFrame {
 	private JTextField textAgentzia;
 	private JTextField textPasahitza;
 
-	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
 	/**
 	 * Create the frame.
@@ -75,7 +59,17 @@ public class Login extends JFrame {
 		btnSaioaHazi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(textAgentzia.getText().equals("admin") && textAgentzia.getText().equals("admin")) {
-					Main.BidaiakIreki();
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak();
+								frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+	                    }
+					});
+					dispose();
 				}
 			}
 		});
@@ -86,7 +80,17 @@ public class Login extends JFrame {
 		JButton btnAgentziaBerria = new JButton("Agentzia berria");
 		btnAgentziaBerria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.agentziaBerriaIreki();
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							AgentziaBerria frame = new AgentziaBerria();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+                    }
+				});
+				dispose();
 			}
 		});
 		btnAgentziaBerria.setFont(new Font("Arial", Font.PLAIN, 17));

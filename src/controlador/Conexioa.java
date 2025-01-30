@@ -4,6 +4,16 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Conexioa {
+	
+	private static final String URL = "jdbc:mysql://localhost:3307/t";
+    private static final String USUARIO = "root";
+    private static final String PASSWORD = "password";
+	
+    public static Connection obtenerConexion() throws SQLException {
+    	return DriverManager.getConnection(URL, USUARIO, PASSWORD);
+    }
+    
+    /*
     public static ArrayList<String> conexiaoBueltatu() {
     	ArrayList<String> emaitza = new ArrayList<String>();
         try {
@@ -11,7 +21,7 @@ public class Conexioa {
         	Class.forName("com.mysql.cj.jdbc.Driver");
         	
             // Establecemos la conexión con la BD
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/empresa", "root", "");
+            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/turismo", "root", "");
 
             // Preparamos la consulta
             Statement sentencia = conexion.createStatement();
@@ -37,7 +47,7 @@ public class Conexioa {
             emaitza.add("Errore bat egon da");
             return emaitza;
         }
-    }
+    }*/
 }
 // fin de main
 // fin de la clase

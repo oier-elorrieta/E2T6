@@ -1,4 +1,4 @@
-package modelo;
+package modelo.POJOak;
 import java.util.ArrayList;
 import java.util.Date;
 

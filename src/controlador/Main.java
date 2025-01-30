@@ -1,5 +1,7 @@
 package controlador;
 
+import java.awt.EventQueue;
+
 import javax.swing.SwingUtilities;
 
 import vista.AgentziaBerria;
@@ -15,67 +17,15 @@ public class Main {
 	static BidaiaketaEkitaldiak bidaiaketaEkitaldiak = new BidaiaketaEkitaldiak();
 
 	public static void main(String[] args) {
-			 try {
-					ongiEtorri.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-	}
-	
-	public static void loginIreki() {
-		
-		try {
-			ongiEtorri.setVisible(false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			login.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	 }
-	
-	public static void agentziaBerriaIreki() {
-			
-			try {
-				login.setVisible(false);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				agentziaBerria.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		 }
-	
-	public static void agentziaBerriaUtzi() {
-		
-		try {
-			agentziaBerria.setVisible(false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			login.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	 }
-	
-	public static void BidaiakIreki() {
-		try {
-			agentziaBerria.setVisible(false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			bidaiaketaEkitaldiak.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                	OngiEtorri frame = new OngiEtorri();
+                	frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

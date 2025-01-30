@@ -34,7 +34,17 @@ public class OngiEtorri extends JFrame {
 		JButton btnOngiEtorri = new JButton("Ongi Etorri");
 		btnOngiEtorri.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.loginIreki();
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Login frame = new Login();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+                    }
+				});
+				dispose();
 			}
 		});
 		btnOngiEtorri.setFont(new Font("Arial", Font.PLAIN, 23));
