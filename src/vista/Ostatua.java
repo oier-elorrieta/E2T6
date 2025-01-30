@@ -89,8 +89,6 @@ public class Ostatua extends JFrame {
 		contentPane.add(comboBoxEmota);
 		
 		JComboBox<String> comboBoxIbilbidea = new JComboBox<>();
-		
-		comboBoxIbilbidea.setModel(new DefaultComboBoxModel<>(new String[] {"Joan", "Joan eta Etorri"}));
 		comboBoxIbilbidea.setBounds(172, 91, 165, 20);
 		contentPane.add(comboBoxIbilbidea);
 		
@@ -118,44 +116,5 @@ public class Ostatua extends JFrame {
 		JDateChooser ItzultzekoData = new JDateChooser();
 		ItzultzekoData.setBounds(498, 181, 150, 20);
 		contentPane.add(ItzultzekoData);
-		
-		comboBoxIbilbidea.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboBoxIbilbidea.getSelectedItem().equals("Joan eta Etorri")) {
-					lblEtorri.setVisible(true);
-					lblJatorrizkoAireportuaItzuli.setVisible(true);
-					lblHelmugakoAireportuaItzuli.setVisible(true);
-					lblItzultzekoData.setVisible(true);
-					lblHegaldikodeaItzuli.setVisible(true);
-					lblAerolineaItzuli.setVisible(true);
-					lblItzuleraOrdua.setVisible(true);
-					lblIraupenaItzuli.setVisible(true);
-					comboBoxJatorrizkoaireportuaItzuli.setVisible(true);
-					comboBoxHelmugakoAireportuaItzuli.setVisible(true);
-					ItzultzekoData.setVisible(true);
-					textHegaldiKodItzuli.setVisible(true);
-					textAerolineaItzuli.setVisible(true);
-					textItzuleraOrdua.setVisible(true);
-					textIraupenaItzuli.setVisible(true);
-				} else {
-					lblEtorri.setVisible(false);
-					lblJatorrizkoAireportuaItzuli.setVisible(false);
-					lblHelmugakoAireportuaItzuli.setVisible(false);
-					lblItzultzekoData.setVisible(false);
-					lblHegaldikodeaItzuli.setVisible(false);
-					lblAerolineaItzuli.setVisible(false);
-					lblItzuleraOrdua.setVisible(false);
-					lblIraupenaItzuli.setVisible(false);
-					comboBoxJatorrizkoaireportuaItzuli.setVisible(false);
-					comboBoxHelmugakoAireportuaItzuli.setVisible(false);
-					ItzultzekoData.setVisible(false);
-					textHegaldiKodItzuli.setVisible(false);
-					textAerolineaItzuli.setVisible(false);
-					textItzuleraOrdua.setVisible(false);
-					textIraupenaItzuli.setVisible(false);
-				}
-			}
-		});
-		lblItzultzekoData.setVisible(false);
 	}
 }
