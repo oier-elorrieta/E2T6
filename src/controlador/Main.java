@@ -16,7 +16,7 @@ public class Main {
 	static OngiEtorri ongiEtorri = new OngiEtorri();
 	static Login login = new Login();
 	static AgentziaBerria agentziaBerria = new AgentziaBerria();
-	static BidaiaketaEkitaldiak bidaiaketaEkitaldiak = new BidaiaketaEkitaldiak();
+	//static BidaiaketaEkitaldiak bidaiaketaEkitaldiak = new BidaiaketaEkitaldiak();
 
 	public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -29,14 +29,14 @@ public class Main {
                 }
             }
         });
-        modelo.POJOak.Agentzia agentzia = new modelo.POJOak.Agentzia();
+ /*     modelo.POJOak.Agentzia agentzia = new modelo.POJOak.Agentzia();
         agentzia = modelo.DAOak.Agentzia.cargatuAgentziak();
         System.out.println(agentzia.toString());
-        
-        ArrayList<modelo.POJOak.Bidaia> bidaiak = new ArrayList<modelo.POJOak.Bidaia>();
+   */
+        /*        ArrayList<modelo.POJOak.Bidaia> bidaiak = new ArrayList<modelo.POJOak.Bidaia>();
         bidaiak = modelo.DAOak.Bidaia.cargatuBidaiak(agentzia.getId());
         System.out.println(bidaiak.toString());
-       
+        */
         
     }
 }

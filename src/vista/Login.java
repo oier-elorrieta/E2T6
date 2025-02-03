@@ -6,6 +6,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -59,19 +60,28 @@ public class Login extends JFrame {
 		JButton btnSaioaHazi = new JButton("Saioa hazi");
 		btnSaioaHazi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textAgentzia.getText().equals("admin") && textAgentzia.getText().equals("admin")) {
-					EventQueue.invokeLater(new Runnable() {
-						public void run() {
-							try {
-								BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak();
-								frame.setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-	                    }
-					});
-					dispose();
-					
+				String erabiltzailea = textAgentzia.getText();
+				String pasahitza = textPasahitza.getText();
+				String erabiltzaileBD = modelo.DAOak.Agentzia.bilatuErabiltzailea(erabiltzailea);
+				String pasahitzaBD = modelo.DAOak.Agentzia.bilatuPasahitza(erabiltzailea);
+				if(erabiltzailea.equals(erabiltzaileBD)) {
+					if(pasahitza.equals(pasahitzaBD)) {
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								try {
+									BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak(erabiltzailea);
+									frame.setVisible(true);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+		                    }
+						});
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "Pasahitza ez da zuzena.");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Erabiltzailea ez da existitzen.");
 				}
 			}
 		});

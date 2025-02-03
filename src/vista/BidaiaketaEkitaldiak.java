@@ -5,9 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.util.ArrayList;
 
 public class BidaiaketaEkitaldiak extends JFrame {
 
@@ -21,23 +23,16 @@ public class BidaiaketaEkitaldiak extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
-	public BidaiaketaEkitaldiak() {
+	public BidaiaketaEkitaldiak(String erabiltzaile) {
+		
+		modelo.POJOak.Agentzia agentzia = new modelo.POJOak.Agentzia();
+		agentzia = modelo.DAOak.Agentzia.cargatuAgentziak(erabiltzaile);
+		ArrayList<modelo.POJOak.Bidaia> bidaiak = new ArrayList<modelo.POJOak.Bidaia>();
+		bidaiak = modelo.DAOak.Bidaia.cargatuBidaiak(agentzia.getId());
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 870, 524);
 		contentPane = new JPanel();
@@ -46,13 +41,26 @@ public class BidaiaketaEkitaldiak extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		tableBidaiak = new JTable();
+		String[] columnNames = {"Bidaiak", "Mota", "Egunak", "Hasiera_Data", "Amaiera_Data", "Herrialdea"};
+        DefaultTableModel modelBidaiak = new DefaultTableModel(columnNames, 0);
+        
+        String[] columnNames1 = {"Ekitaldia", "Mota", "Data", "Prezioa"};
+        DefaultTableModel modelEkitaldiak = new DefaultTableModel(columnNames1, 0);
+		
+		tableBidaiak = new JTable(modelBidaiak);
 		tableBidaiak.setBounds(45, 66, 534, 99);
 		contentPane.add(tableBidaiak);
 		
-		tableEkitaldiak = new JTable();
+		//for(recorrer la array de viajes)
+		//tableEkitaldiak.add(cargar cada objeto viaje en la tabla)
+		
+		tableEkitaldiak = new JTable(modelEkitaldiak);
 		tableEkitaldiak.setBounds(45, 220, 534, 99);
 		contentPane.add(tableEkitaldiak);
+		
+		//for(recorrer la array de servicios de X viaje)
+		//tableEkitaldiak.add(cargar cada objeto servicio en la tabla)
+		
 		
 		JButton btnBidaiBerria = new JButton("Bidai Berria");
 		btnBidaiBerria.setFont(new Font("Arial", Font.PLAIN, 17));
