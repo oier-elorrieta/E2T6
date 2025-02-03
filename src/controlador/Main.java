@@ -1,9 +1,11 @@
 package controlador;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
+import modelo.POJOak.Bidaia;
 import vista.AgentziaBerria;
 import vista.BidaiaketaEkitaldiak;
 import vista.Login;
@@ -27,10 +29,14 @@ public class Main {
                 }
             }
         });
-        
         modelo.POJOak.Agentzia agentzia = new modelo.POJOak.Agentzia();
         agentzia = modelo.DAOak.Agentzia.cargatuAgentziak();
         System.out.println(agentzia.toString());
+        
+        ArrayList<modelo.POJOak.Bidaia> bidaiak = new ArrayList<modelo.POJOak.Bidaia>();
+        bidaiak = modelo.DAOak.Bidaia.cargatuBidaiak(agentzia.getId());
+        System.out.println(bidaiak.toString());
+       
         
     }
 }

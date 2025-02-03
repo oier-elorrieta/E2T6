@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class Conexioa {
 	
-	private static final String URL = "jdbc:mysql://localhost:3307/t";
+	private static final String URL = "jdbc:mysql://localhost:3307/turismo_probak";
     private static final String USUARIO = "root";
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = "";
 	
     public static Connection obtenerConexion() throws SQLException {
     	return DriverManager.getConnection(URL, USUARIO, PASSWORD);

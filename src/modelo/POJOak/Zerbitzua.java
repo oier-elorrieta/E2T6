@@ -2,7 +2,7 @@ package modelo.POJOak;
 
 import java.util.Date;
 
-public class Zerbitzuak{
+public class Zerbitzua{
 
 	//Hegaldien atributoak
 	private int id_hegaldia;
@@ -14,7 +14,7 @@ public class Zerbitzuak{
 	private String aerolinea;
 	private double hegaldiPrezioa;
 	private Date hegaldiIrteera;
-	private Date hegaldiIraupena;
+	private String hegaldiIraupena;
 	private int id_buelta;
 
 	//Ostatuen atributoak
@@ -33,8 +33,8 @@ public class Zerbitzuak{
 	private Date jardueraData;
 	private double jardueraPrezioa;
 	
-	public Zerbitzuak(int id_hegaldia, String hegaldiIzena, String jatorria, String helmuga, Date hegaldiData,
-			String kod, String aerolinea, double hegaldiPrezioa, Date hegaldiIrteera, Date hegaldiIraupena,
+	public Zerbitzua(int id_hegaldia, String hegaldiIzena, String jatorria, String helmuga, Date hegaldiData,
+			String kod, String aerolinea, double hegaldiPrezioa, Date hegaldiIrteera, String hegaldiIraupena,
 			int id_buelta) {
 		this.id_hegaldia = id_hegaldia;
 		this.hegaldiIzena = hegaldiIzena;
@@ -49,7 +49,7 @@ public class Zerbitzuak{
 		this.id_buelta = id_buelta;
 	}
 
-	public Zerbitzuak(int idOstatua, String ostatuIzena, String logela, String hiria, Date ostatuSarrera,
+	public Zerbitzua(int idOstatua, String ostatuIzena, String logela, String hiria, Date ostatuSarrera,
 			Date ostatuIrteera, double ostatuPrezioa) {
 		this.idOstatua = idOstatua;
 		this.ostatuIzena = ostatuIzena;
@@ -60,7 +60,7 @@ public class Zerbitzuak{
 		this.ostatuPrezioa = ostatuPrezioa;
 	}
 
-	public Zerbitzuak(int jardueraId, String jardueraIzena, String jardueraDeskribapena, Date jardueraData,
+	public Zerbitzua(int jardueraId, String jardueraIzena, String jardueraDeskribapena, Date jardueraData,
 			double jardueraPrezioa) {
 		this.jardueraId = jardueraId;
 		this.jardueraIzena = jardueraIzena;
@@ -143,11 +143,11 @@ public class Zerbitzuak{
 		this.hegaldiIrteera = hegaldiIrteera;
 	}
 
-	public Date getHegaldiIraupena() {
+	public String getHegaldiIraupena() {
 		return hegaldiIraupena;
 	}
 
-	public void setHegaldiIraupena(Date hegaldiIraupena) {
+	public void setHegaldiIraupena(String hegaldiIraupena) {
 		this.hegaldiIraupena = hegaldiIraupena;
 	}
 
@@ -254,5 +254,19 @@ public class Zerbitzuak{
 	public void setJardueraPrezioa(double jardueraPrezioa) {
 		this.jardueraPrezioa = jardueraPrezioa;
 	}
+
+	@Override
+	public String toString() {
+		return "Zerbitzua [id_hegaldia=" + id_hegaldia + ", hegaldiIzena=" + hegaldiIzena + ", jatorria=" + jatorria
+				+ ", helmuga=" + helmuga + ", hegaldiData=" + hegaldiData + ", kod=" + kod + ", aerolinea=" + aerolinea
+				+ ", hegaldiPrezioa=" + hegaldiPrezioa + ", hegaldiIrteera=" + hegaldiIrteera + ", hegaldiIraupena="
+				+ hegaldiIraupena + ", id_buelta=" + id_buelta + ", idOstatua=" + idOstatua + ", ostatuIzena="
+				+ ostatuIzena + ", logela=" + logela + ", hiria=" + hiria + ", ostatuSarrera=" + ostatuSarrera
+				+ ", ostatuIrteera=" + ostatuIrteera + ", ostatuPrezioa=" + ostatuPrezioa + ", jardueraId=" + jardueraId
+				+ ", jardueraIzena=" + jardueraIzena + ", jardueraDeskribapena=" + jardueraDeskribapena
+				+ ", jardueraData=" + jardueraData + ", jardueraPrezioa=" + jardueraPrezioa + "]";
+	}
+	
+	
 
 }

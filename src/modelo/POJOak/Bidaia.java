@@ -6,27 +6,28 @@ public class Bidaia {
 	
 	private int id;
 	private String izena;
-	private String mota;
+	private String deskirbapena;
 	private Date bidaia_hasi;
 	private Date bidaia_amaitu;
-	private int egun_kop;
 	private String herrialdea;
-	private String deskirbapena;
-	private String ezDaudenZerbitzuak;
-	private ArrayList<Zerbitzuak> Zerbitzuak;
+	private String mota;
+	private ArrayList<Zerbitzua> Zerbitzuak;
 	
 	
-	public Bidaia(int id, String izena, String mota, Date bidaia_hasi, Date bidaia_amaitu, int egun_kop,
-			String herrialdea, String deskirbapena, String ezDaudenZerbitzuak) {
+	
+	public Bidaia(int id, String izena, String deskirbapena, java.sql.Date bidaia_hasi, java.sql.Date bidaia_amaitu, String herrialdea, String mota, ArrayList<Zerbitzua> Zerbitzuak) {
 		this.id = id;
 		this.izena = izena;
-		this.mota = mota;
+		this.deskirbapena = deskirbapena;
 		this.bidaia_hasi = bidaia_hasi;
 		this.bidaia_amaitu = bidaia_amaitu;
-		this.egun_kop = egun_kop;
 		this.herrialdea = herrialdea;
-		this.deskirbapena = deskirbapena;
-		this.ezDaudenZerbitzuak = ezDaudenZerbitzuak;
+		this.mota = mota;
+		this.Zerbitzuak = Zerbitzuak;
+	}
+	
+	public Bidaia() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
@@ -69,14 +70,6 @@ public class Bidaia {
 		this.bidaia_amaitu = bidaia_amaitu;
 	}
 
-	public int getEgun_kop() {
-		return egun_kop;
-	}
-
-	public void setEgun_kop(int egun_kop) {
-		this.egun_kop = egun_kop;
-	}
-
 	public String getHerrialdea() {
 		return herrialdea;
 	}
@@ -93,20 +86,16 @@ public class Bidaia {
 		this.deskirbapena = deskirbapena;
 	}
 
-	public String getEzDaudenZerbitzuak() {
-		return ezDaudenZerbitzuak;
-	}
-
-	public void setEzDaudenZerbitzuak(String zerbitzuak) {
-		this.ezDaudenZerbitzuak = zerbitzuak;
-	}
-
 	@Override
 	public String toString() {
-		return "Bidaia: " + izena + "/nMota:" + mota + "/nBidaia_hasi:" + bidaia_hasi
-				+ "/tBidaia_amaitu:" + bidaia_amaitu + "/tEgun_kop:" + egun_kop + "/tHerrialdea:" + herrialdea
-				+ "/nDeskirbapena:" + deskirbapena + "/nSartuta ez dauden zerbitzuak:" + ezDaudenZerbitzuak;
+		return "Bidaia [id=" + id + ", izena=" + izena + ", deskirbapena=" + deskirbapena + ", bidaia_hasi="
+				+ bidaia_hasi + ", bidaia_amaitu=" + bidaia_amaitu + ", herrialdea=" + herrialdea + ", mota=" + mota
+				+ ", Zerbitzuak=" + Zerbitzuak + ", getId()=" + getId() + ", getIzena()=" + getIzena() + ", getMota()="
+				+ getMota() + ", getBidaia_hasi()=" + getBidaia_hasi() + ", getBidaia_amaitu()=" + getBidaia_amaitu()
+				+ ", getHerrialdea()=" + getHerrialdea() + ", getDeskirbapena()=" + getDeskirbapena() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
 	
 	
 }
