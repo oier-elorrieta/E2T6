@@ -85,6 +85,10 @@ public class Bidaia {
 	public void setDeskirbapena(String deskirbapena) {
 		this.deskirbapena = deskirbapena;
 	}
+	
+	public ArrayList<Zerbitzua> getZerbitzuak() {
+		return Zerbitzuak;
+	}
 
 	@Override
 	public String toString() {

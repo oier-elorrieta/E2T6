@@ -47,6 +47,9 @@ public class Zerbitzua{
 		this.hegaldiIrteera = hegaldiIrteera;
 		this.hegaldiIraupena = hegaldiIraupena;
 		this.id_buelta = id_buelta;
+		this.idOstatua=-1;
+		this.jardueraId=-1;
+		
 	}
 
 	public Zerbitzua(int idOstatua, String ostatuIzena, String logela, String hiria, Date ostatuSarrera,
@@ -58,6 +61,8 @@ public class Zerbitzua{
 		this.ostatuSarrera = ostatuSarrera;
 		this.ostatuIrteera = ostatuIrteera;
 		this.ostatuPrezioa = ostatuPrezioa;
+		this.id_hegaldia=-1;
+		this.jardueraId=-1;
 	}
 
 	public Zerbitzua(int jardueraId, String jardueraIzena, String jardueraDeskribapena, Date jardueraData,
@@ -67,6 +72,8 @@ public class Zerbitzua{
 		this.jardueraDeskribapena = jardueraDeskribapena;
 		this.jardueraData = jardueraData;
 		this.jardueraPrezioa = jardueraPrezioa;
+		this.id_hegaldia=-1;
+		this.idOstatua=-1;
 	}
 
 	
