@@ -26,6 +26,7 @@ public class Bidaia {
 	             ResultSet rs = stmt.executeQuery(sql)) {
 			
 			while (rs.next()) {
+				@SuppressWarnings("unused")
 				ArrayList<modelo.POJOak.Zerbitzua> zerbitzuak = new ArrayList<modelo.POJOak.Zerbitzua>();
 				modelo.POJOak.Bidaia bidaia = new modelo.POJOak.Bidaia(rs.getInt("ID"), rs.getString("b.Izena"), rs.getString("Deskribapena"), 
 						rs.getDate("Data_Hasiera"), rs.getDate("Data_Amaiera"), rs.getString("h.Izena"), rs.getString("bm.Mota"), zerbitzuak = modelo.DAOak.Zerbitzua.cargatuZerbitzuak(rs.getInt("ID")));
@@ -33,9 +34,20 @@ public class Bidaia {
             }
 		} catch (SQLException e) {
             e.printStackTrace();
-            
         }	
 		return bidaiak;
-		}
-
+	}
+	
+	public static void EzabatuBidaiak(int ID){
+		String sql = "delete from Bidaiak where ID = "+ID;
+		
+		try (Connection conn = Conexioa.obtenerConexion();
+	         Statement stmt = conn.createStatement()) {
+			@SuppressWarnings("unused")
+			int rs = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+	
 }

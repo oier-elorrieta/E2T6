@@ -15,7 +15,9 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.ListSelectionModel;
 
 public class BidaiaketaEkitaldiak extends JFrame {
 
@@ -26,6 +28,8 @@ public class BidaiaketaEkitaldiak extends JFrame {
 	private JButton btnAtera;
 	private JButton btnEskaintzaAtera;
 	private int posizioa = 0;
+	private int erabakitakolerroaBidaia;
+	private int erabakitakolerroaEkitaldia;
 	private ArrayList<modelo.POJOak.Bidaia> bidaiak2 = new ArrayList<modelo.POJOak.Bidaia>();
 
 	/**
@@ -40,10 +44,6 @@ public class BidaiaketaEkitaldiak extends JFrame {
 		agentzia = modelo.DAOak.Agentzia.cargatuAgentziak(erabiltzaile);
 		ArrayList<modelo.POJOak.Bidaia> bidaiak = new ArrayList<modelo.POJOak.Bidaia>();
 		bidaiak = modelo.DAOak.Bidaia.cargatuBidaiak(agentzia.getId());
-		ArrayList<modelo.POJOak.Aireportu> aireportuak = new ArrayList<modelo.POJOak.Aireportu>();
-		aireportuak = modelo.DAOak.Aireportu.cargatuAireportuak();
-		ArrayList<modelo.POJOak.Herrialde> herrialdeak = new ArrayList<modelo.POJOak.Herrialde>();
-		herrialdeak = modelo.DAOak.Herrialde.cargatuHerrialdeak();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 870, 524);
@@ -60,6 +60,7 @@ public class BidaiaketaEkitaldiak extends JFrame {
         DefaultTableModel modelEkitaldiak = new DefaultTableModel(columnNames1, 0);
 		
 		tableBidaiak = new JTable(modelBidaiak);
+		tableBidaiak.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableBidaiak.setBounds(45, 66, 534, 99);
 		contentPane.add(tableBidaiak);
 		
@@ -72,19 +73,23 @@ public class BidaiaketaEkitaldiak extends JFrame {
 		//for(recorrer la array de viajes)
 		//tableEkitaldiak.add(cargar cada objeto viaje en la tabla)
 		
+		JButton btnBidaiEzabatu = new JButton("Bidai Ezabatu");
+		JButton btnEkitaldiEzabatu = new JButton("Ekitaldi Ezabatu");
+		btnBidaiEzabatu.setEnabled(false);
+		btnEkitaldiEzabatu.setEnabled(false);
 		bidaiak2=bidaiak;
 		tableBidaiak.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (e.getValueIsAdjusting()) {
-					int erabakitakolerroa = tableBidaiak.getSelectedRow();
-					if (erabakitakolerroa != -1) {
+				if (!e.getValueIsAdjusting()) {
+					erabakitakolerroaBidaia = tableBidaiak.getSelectedRow();
+					if (erabakitakolerroaBidaia != -1) {
 						modelEkitaldiak.setRowCount(0);
-						int erabakitakoID = (int) modelBidaiak.getValueAt(erabakitakolerroa, 0);
+						int erabakitakoID = (int) modelBidaiak.getValueAt(erabakitakolerroaBidaia, 0);
 						posizioa=Metodoak.bidaiarenZerbitzuak(bidaiak2, erabakitakoID, modelEkitaldiak);
-						System.out.println(modelBidaiak.getValueAt(erabakitakolerroa, 0));
 						for (modelo.POJOak.Zerbitzua b : bidaiak2.get(posizioa).getZerbitzuak()) {
+							System.out.println(b);
 							if (b.getId_hegaldia()!=-1) {
 								Object[] row = {b.getId_hegaldia(), b.getHegaldiIzena(), "Hegaldia", b.getHegaldiData(), b.getHegaldiPrezioa()};
 								modelEkitaldiak.addRow(row);
@@ -96,38 +101,104 @@ public class BidaiaketaEkitaldiak extends JFrame {
 								modelEkitaldiak.addRow(row);
 							}
 						}
+						btnBidaiEzabatu.setEnabled(true);
+						btnBidaiEzabatu.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								if (erabakitakolerroaEkitaldia != -1)
+								modelBidaiak.removeRow(erabakitakolerroaBidaia);
+								System.out.println(erabakitakoID);
+								//bidaiak2.remove(erabakitakoID-1);
+								//modelo.DAOak.Bidaia.EzabatuBidaiak(erabakitakoID);
+								tableBidaiak.clearSelection();
+								btnBidaiEzabatu.setEnabled(false);
+								tableEkitaldiak.clearSelection();
+								modelEkitaldiak.setRowCount(0);
+							}
+						});
+						tableEkitaldiak.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+							
+							@Override
+							public void valueChanged(ListSelectionEvent e) {
+								if (!e.getValueIsAdjusting()) {
+									erabakitakolerroaEkitaldia = tableEkitaldiak.getSelectedRow();
+									System.out.println("1-"+erabakitakolerroaEkitaldia); 
+							
+									if (erabakitakolerroaEkitaldia != -1) {
+										System.out.println("2-"+erabakitakolerroaEkitaldia);
+										btnEkitaldiEzabatu.setEnabled(true);
+										System.out.println("3-"+erabakitakolerroaEkitaldia);
+										btnEkitaldiEzabatu.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												if (erabakitakolerroaEkitaldia != -1) {
+												System.out.println("4-"+erabakitakolerroaEkitaldia);
+												modelEkitaldiak.removeRow(erabakitakolerroaEkitaldia);
+												System.out.println("5-"+erabakitakolerroaEkitaldia);
+												}
+												/*if (bidaiak.get(posizioa).getZerbitzuak().get().getId_hegaldia()!=-1) {
+													modelo.DAOak.Zerbitzua.ezabatuZerbitzuak(bidaiak.get(posizioa).getId_hegaldia());
+												} else if (bidaiak.get(posizioa).getIdOstatua()!=-1) {
+													modelo.DAOak.Zerbitzua.ezabatuZerbitzuak(bidaiak.get(posizioa).getId_hegaldia());
+												} else if (bidaiak.get(posizioa).getJardueraId()!=-1){
+													modelo.DAOak.Zerbitzua.ezabatuZerbitzuak(bidaiak.get(posizioa).getId_hegaldia());
+												}*/
+												
+												//tableBidaiak.clearSelection();
+												//tableEkitaldiak.clearSelection();
+												btnEkitaldiEzabatu.setEnabled(false);
+												btnBidaiEzabatu.setEnabled(false);
+											}
+										});
+										
+									}
+								}
+							}
+						});
 					}
 				}
 			}
 		});
 		
 		
-		
 		//for(recorrer la array de servicios de X viaje)
 		//tableEkitaldiak.add(cargar cada objeto servicio en la tabla)
 		
 		tableEkitaldiak = new JTable(modelEkitaldiak);
+		tableEkitaldiak.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableEkitaldiak.setBounds(45, 220, 534, 99);
 		contentPane.add(tableEkitaldiak);
 		
 		JButton btnBidaiBerria = new JButton("Bidai Berria");
 		btnBidaiBerria.setFont(new Font("Arial", Font.PLAIN, 17));
-		btnBidaiBerria.setBounds(666, 66, 147, 23);
+		btnBidaiBerria.setBounds(639, 66, 167, 23);
 		contentPane.add(btnBidaiBerria);
 		
 		JButton btnEkitaldiBerria = new JButton("Ekitaldi Berria");
 		btnEkitaldiBerria.setFont(new Font("Arial", Font.PLAIN, 17));
-		btnEkitaldiBerria.setBounds(666, 220, 147, 23);
+		btnEkitaldiBerria.setBounds(639, 220, 167, 23);
 		contentPane.add(btnEkitaldiBerria);
 		
 		btnAtera = new JButton("Atera");
 		btnAtera.setFont(new Font("Arial", Font.PLAIN, 17));
-		btnAtera.setBounds(666, 372, 147, 23);
+		btnAtera.setBounds(639, 372, 167, 23);
 		contentPane.add(btnAtera);
 		
 		btnEskaintzaAtera = new JButton("Eskaintza sortu");
 		btnEskaintzaAtera.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnEskaintzaAtera.setBounds(67, 408, 512, 23);
 		contentPane.add(btnEskaintzaAtera);
+		
+		
+		btnEkitaldiEzabatu.setFont(new Font("Arial", Font.PLAIN, 17));
+		btnEkitaldiEzabatu.setBounds(639, 256, 167, 23);
+		contentPane.add(btnEkitaldiEzabatu);
+		
+		
+		
+		
+			
+		
+		btnBidaiEzabatu.setFont(new Font("Arial", Font.PLAIN, 17));
+		btnBidaiEzabatu.setBounds(639, 100, 167, 23);
+		contentPane.add(btnBidaiEzabatu);
 	}
 }

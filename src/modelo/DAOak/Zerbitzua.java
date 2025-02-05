@@ -30,8 +30,8 @@ public class Zerbitzua {
 	             ResultSet rs = stmt.executeQuery(sql)) {
 			
 			while (rs.next()) {
-				if(rs.getInt("h.ID") != -1) {
-					String hegaldiIzena = "Izena";
+				if(rs.getInt("h.ID") != 0) {
+					System.out.println(rs.getInt("h.ID")+"id hegaldi");
 					int ID_Buelta = 0;
 					try {
 						ID_Buelta = rs.getInt("h.ID_buelta");
@@ -41,12 +41,12 @@ public class Zerbitzua {
 					modelo.POJOak.Zerbitzua zerbitzua = new modelo.POJOak.Zerbitzua(rs.getInt("h.ID"), rs.getString("h.Izena"), rs.getString("Jatorrizko"), rs.getString("Helmuga"), 
 							rs.getDate("Irteera_Data"), rs.getString("Hegaldi_Kod"), rs.getString("Aerolinea"), rs.getDouble("h.Prezioa"), rs.getDate("Irteera_Ordua"), 
 							rs.getString("Iraupena"), ID_Buelta);
-				zerbitzuak.add(zerbitzua);
-				} else if (rs.getInt("o.ID") != -1) {
+					zerbitzuak.add(zerbitzua);
+				} else if (rs.getInt("o.ID") != 0) {
 					modelo.POJOak.Zerbitzua zerbitzua = new modelo.POJOak.Zerbitzua(rs.getInt("o.ID"), rs.getString("Hotelaren_Izena"), rs.getString("Logela_Mota"), 
 							rs.getString("Hiria"), rs.getDate("o.Sarrera_Eguna"), rs.getDate("o.Irteera_Eguna"),rs.getDouble("o.Prezioa"));
 					zerbitzuak.add(zerbitzua);
-				} else if (rs.getInt("bb.ID") != -1) {
+				} else if (rs.getInt("bb.ID") != 0) {
 					modelo.POJOak.Zerbitzua zerbitzua = new modelo.POJOak.Zerbitzua(rs.getInt("bb.ID"), rs.getString("bb.Izena"), rs.getString("Deskribapena"), 
 							rs.getDate("bb.Eguna"), rs.getDouble("bb.Prezioa"));
 					zerbitzuak.add(zerbitzua);
@@ -54,8 +54,18 @@ public class Zerbitzua {
             }
 		} catch (SQLException e) {
             e.printStackTrace();
-            
         }	
 		return zerbitzuak;
-		}
+	}
+	public static void ezabatuZerbitzuak(int ID) {
+		String sql = "delete from zerbitzuak where ID = "+ID;
+		
+		try (Connection conn = Conexioa.obtenerConexion();
+	         Statement stmt = conn.createStatement()) {
+			@SuppressWarnings("unused")
+			int rs = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
 }

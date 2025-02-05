@@ -84,25 +84,24 @@ public class Bidaia {
 		this.deskirbapena = deskirbapena;
 	}
 	
-	public ArrayList<Zerbitzua> getZerbitzuak1() {
+	public ArrayList<Zerbitzua> getZerbitzuak() {
 		return Zerbitzuak;
 	}
-
+	
+	public void setZerbitzuak(ArrayList<Zerbitzua> zerbitzuak) {
+		Zerbitzuak = zerbitzuak;
+	}
+	
 	@Override
 	public String toString() {
 		return "Bidaia [id=" + id + ", izena=" + izena + ", deskirbapena=" + deskirbapena + ", bidaia_hasi="
 				+ bidaia_hasi + ", bidaia_amaitu=" + bidaia_amaitu + ", herrialdea=" + herrialdea + ", mota=" + mota
-				+ ", Zerbitzuak=" + getZerbitzuak1() + ", getId()=" + getId() + ", getIzena()=" + getIzena() + ", getMota()="
+				+ ", Zerbitzuak=" + getZerbitzuak() + ", getId()=" + getId() + ", getIzena()=" + getIzena() + ", getMota()="
 				+ getMota() + ", getBidaia_hasi()=" + getBidaia_hasi() + ", getBidaia_amaitu()=" + getBidaia_amaitu()
 				+ ", getHerrialdea()=" + getHerrialdea() + ", getDeskirbapena()=" + getDeskirbapena() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
-	public ArrayList<Zerbitzua> getZerbitzuak() {
-		return Zerbitzuak;
-	}
 
-	public void setZerbitzuak(ArrayList<Zerbitzua> zerbitzuak) {
-		Zerbitzuak = zerbitzuak;
-	}
+	
 }
