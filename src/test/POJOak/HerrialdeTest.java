@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import modelo.POJOak.Aireportu;
 import modelo.POJOak.Herrialde;
 
 public class HerrialdeTest {
@@ -31,4 +30,5 @@ public class HerrialdeTest {
         herrialde.setIzena("Frantzia");
         assertEquals("Frantzia", herrialde.getIzena());
     }
+
 }

@@ -1,18 +1,20 @@
 package test.POJOak;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import modelo.POJOak.Bidaia;
 import modelo.POJOak.Zerbitzua;
 
-class BidaiaTest {
-	
+public class BidaiaTest {
+
 	private ArrayList<Zerbitzua> zerbitzuak;
 	private Bidaia bidaia;;
     

@@ -1,17 +1,16 @@
 package test.POJOak;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Date;
-import java.util.ArrayList;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import modelo.POJOak.Bidaia;
 import modelo.POJOak.Zerbitzua;
 
-class ZerbitzuTest {
+public class ZerbitzuaTest {
 
 	private Zerbitzua hegaldia;
 	private Zerbitzua ostatua;
@@ -161,4 +160,5 @@ class ZerbitzuTest {
         jarduera.setJardueraPrezioa(30.00);
         assertEquals(30.00, jarduera.getJardueraPrezioa(), 0.01);
     }
+
 }
