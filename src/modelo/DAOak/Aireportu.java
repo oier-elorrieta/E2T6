@@ -12,9 +12,9 @@ import controlador.Conexioa;
 
 public class Aireportu {
 
-	public List<modelo.POJOak.Aireportu> cargatuAireportuak(){
-		List<modelo.POJOak.Aireportu> aireportuak = new ArrayList<>();
-		String sql = "SELECT * FROM Agentziak";
+	public static ArrayList<modelo.POJOak.Aireportu> cargatuAireportuak(){
+		ArrayList<modelo.POJOak.Aireportu> aireportuak = new ArrayList<>();
+		String sql = "SELECT * FROM Aireportuak";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 	             Statement stmt = conn.createStatement();
@@ -28,7 +28,6 @@ public class Aireportu {
             e.printStackTrace();
         }
 		
-		//vkjdnfkbjdf
         return aireportuak;			
 		}
 }

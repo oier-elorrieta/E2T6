@@ -11,23 +11,21 @@ import controlador.Conexioa;
 
 public class Herrialde {
 	
-	public List<modelo.POJOak.Herrialde> cargatuAireportuak(){
-		List<modelo.POJOak.Herrialde> herrialde = new ArrayList<>();
-		String sql = "SELECT * FROM Agentziak";
+	public static ArrayList<modelo.POJOak.Herrialde> cargatuHerrialdeak(){
+		ArrayList<modelo.POJOak.Herrialde> herrialde = new ArrayList<>();
+		String sql = "SELECT * FROM herrialdea";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 	             Statement stmt = conn.createStatement();
 	             ResultSet rs = stmt.executeQuery(sql)) {
 			
 			while (rs.next()) {
-				modelo.POJOak.Herrialde aireportu = new modelo.POJOak.Herrialde(rs.getString("aireportu"), rs.getString("hiria"));
+				modelo.POJOak.Herrialde aireportu = new modelo.POJOak.Herrialde(rs.getString("ID"), rs.getString("Izena"));
 				herrialde.add(aireportu); 
                 }
 		} catch (SQLException e) {
             e.printStackTrace();
         }
-		
-		//vkjdnfkbjdf
         return herrialde;			
 		}
 

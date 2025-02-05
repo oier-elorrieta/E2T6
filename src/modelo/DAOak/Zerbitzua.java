@@ -30,7 +30,7 @@ public class Zerbitzua {
 	             ResultSet rs = stmt.executeQuery(sql)) {
 			
 			while (rs.next()) {
-				if(rs.getInt("h.ID") != 0) {
+				if(rs.getInt("h.ID") != -1) {
 					String hegaldiIzena = "Izena";
 					int ID_Buelta = 0;
 					try {
@@ -42,11 +42,11 @@ public class Zerbitzua {
 							rs.getDate("Irteera_Data"), rs.getString("Hegaldi_Kod"), rs.getString("Aerolinea"), rs.getDouble("h.Prezioa"), rs.getDate("Irteera_Ordua"), 
 							rs.getString("Iraupena"), ID_Buelta);
 				zerbitzuak.add(zerbitzua);
-				} else if (rs.getInt("o.ID") != 0) {
+				} else if (rs.getInt("o.ID") != -1) {
 					modelo.POJOak.Zerbitzua zerbitzua = new modelo.POJOak.Zerbitzua(rs.getInt("o.ID"), rs.getString("Hotelaren_Izena"), rs.getString("Logela_Mota"), 
 							rs.getString("Hiria"), rs.getDate("o.Sarrera_Eguna"), rs.getDate("o.Irteera_Eguna"),rs.getDouble("o.Prezioa"));
 					zerbitzuak.add(zerbitzua);
-				} else if (rs.getInt("bb.ID") != 0) {
+				} else if (rs.getInt("bb.ID") != -1) {
 					modelo.POJOak.Zerbitzua zerbitzua = new modelo.POJOak.Zerbitzua(rs.getInt("bb.ID"), rs.getString("bb.Izena"), rs.getString("Deskribapena"), 
 							rs.getDate("bb.Eguna"), rs.getDouble("bb.Prezioa"));
 					zerbitzuak.add(zerbitzua);

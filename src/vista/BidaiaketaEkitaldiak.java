@@ -40,6 +40,10 @@ public class BidaiaketaEkitaldiak extends JFrame {
 		agentzia = modelo.DAOak.Agentzia.cargatuAgentziak(erabiltzaile);
 		ArrayList<modelo.POJOak.Bidaia> bidaiak = new ArrayList<modelo.POJOak.Bidaia>();
 		bidaiak = modelo.DAOak.Bidaia.cargatuBidaiak(agentzia.getId());
+		ArrayList<modelo.POJOak.Aireportu> aireportuak = new ArrayList<modelo.POJOak.Aireportu>();
+		aireportuak = modelo.DAOak.Aireportu.cargatuAireportuak();
+		ArrayList<modelo.POJOak.Herrialde> herrialdeak = new ArrayList<modelo.POJOak.Herrialde>();
+		herrialdeak = modelo.DAOak.Herrialde.cargatuHerrialdeak();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 870, 524);

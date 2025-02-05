@@ -13,8 +13,6 @@ public class Bidaia {
 	private String mota;
 	private ArrayList<Zerbitzua> Zerbitzuak;
 	
-	
-	
 	public Bidaia(int id, String izena, String deskirbapena, java.sql.Date bidaia_hasi, java.sql.Date bidaia_amaitu, String herrialdea, String mota, ArrayList<Zerbitzua> Zerbitzuak) {
 		this.id = id;
 		this.izena = izena;
@@ -23,11 +21,11 @@ public class Bidaia {
 		this.bidaia_amaitu = bidaia_amaitu;
 		this.herrialdea = herrialdea;
 		this.mota = mota;
-		this.Zerbitzuak = Zerbitzuak;
+		this.setZerbitzuak(Zerbitzuak);
 	}
 	
 	public Bidaia() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public int getId() {
@@ -86,7 +84,7 @@ public class Bidaia {
 		this.deskirbapena = deskirbapena;
 	}
 	
-	public ArrayList<Zerbitzua> getZerbitzuak() {
+	public ArrayList<Zerbitzua> getZerbitzuak1() {
 		return Zerbitzuak;
 	}
 
@@ -94,12 +92,17 @@ public class Bidaia {
 	public String toString() {
 		return "Bidaia [id=" + id + ", izena=" + izena + ", deskirbapena=" + deskirbapena + ", bidaia_hasi="
 				+ bidaia_hasi + ", bidaia_amaitu=" + bidaia_amaitu + ", herrialdea=" + herrialdea + ", mota=" + mota
-				+ ", Zerbitzuak=" + Zerbitzuak + ", getId()=" + getId() + ", getIzena()=" + getIzena() + ", getMota()="
+				+ ", Zerbitzuak=" + getZerbitzuak1() + ", getId()=" + getId() + ", getIzena()=" + getIzena() + ", getMota()="
 				+ getMota() + ", getBidaia_hasi()=" + getBidaia_hasi() + ", getBidaia_amaitu()=" + getBidaia_amaitu()
 				+ ", getHerrialdea()=" + getHerrialdea() + ", getDeskirbapena()=" + getDeskirbapena() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
-	
-	
+	public ArrayList<Zerbitzua> getZerbitzuak() {
+		return Zerbitzuak;
+	}
+
+	public void setZerbitzuak(ArrayList<Zerbitzua> zerbitzuak) {
+		Zerbitzuak = zerbitzuak;
+	}
 }
