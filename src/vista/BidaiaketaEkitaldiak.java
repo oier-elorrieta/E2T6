@@ -27,7 +27,8 @@ public class BidaiaketaEkitaldiak extends JFrame {
 	private JTable tableEkitaldiak;
 	private JButton btnAtera;
 	private JButton btnEskaintzaAtera;
-	private int posizioa = 0;
+	private int posizioaBidaiak = 0;
+	private int posizioaEkitaldiak = 0;
 	private int erabakitakolerroaBidaia;
 	private int erabakitakolerroaEkitaldia;
 	private ArrayList<modelo.POJOak.Bidaia> bidaiak2 = new ArrayList<modelo.POJOak.Bidaia>();
@@ -87,9 +88,8 @@ public class BidaiaketaEkitaldiak extends JFrame {
 					if (erabakitakolerroaBidaia != -1) {
 						modelEkitaldiak.setRowCount(0);
 						int erabakitakoID = (int) modelBidaiak.getValueAt(erabakitakolerroaBidaia, 0);
-						posizioa=Metodoak.bidaiarenZerbitzuak(bidaiak2, erabakitakoID, modelEkitaldiak);
-						for (modelo.POJOak.Zerbitzua b : bidaiak2.get(posizioa).getZerbitzuak()) {
-							System.out.println(b);
+						posizioaBidaiak=Metodoak.bidaiarenZerbitzuak(bidaiak2, erabakitakoID);
+						for (modelo.POJOak.Zerbitzua b : bidaiak2.get(posizioaBidaiak).getZerbitzuak()) {
 							if (b.getId_hegaldia()!=-1) {
 								Object[] row = {b.getId_hegaldia(), b.getHegaldiIzena(), "Hegaldia", b.getHegaldiData(), b.getHegaldiPrezioa()};
 								modelEkitaldiak.addRow(row);
@@ -106,12 +106,9 @@ public class BidaiaketaEkitaldiak extends JFrame {
 							public void actionPerformed(ActionEvent e) {
 								if (erabakitakolerroaEkitaldia != -1)
 								modelBidaiak.removeRow(erabakitakolerroaBidaia);
-								System.out.println(erabakitakoID);
-								//bidaiak2.remove(erabakitakoID-1);
-								//modelo.DAOak.Bidaia.EzabatuBidaiak(erabakitakoID);
-								tableBidaiak.clearSelection();
+								bidaiak2.remove(posizioaBidaiak);
+								modelo.DAOak.Bidaia.EzabatuBidaiak(erabakitakoID);
 								btnBidaiEzabatu.setEnabled(false);
-								tableEkitaldiak.clearSelection();
 								modelEkitaldiak.setRowCount(0);
 							}
 						});
@@ -121,29 +118,24 @@ public class BidaiaketaEkitaldiak extends JFrame {
 							public void valueChanged(ListSelectionEvent e) {
 								if (!e.getValueIsAdjusting()) {
 									erabakitakolerroaEkitaldia = tableEkitaldiak.getSelectedRow();
-									System.out.println("1-"+erabakitakolerroaEkitaldia); 
-							
 									if (erabakitakolerroaEkitaldia != -1) {
-										System.out.println("2-"+erabakitakolerroaEkitaldia);
+										int erabakitakoID = (int) modelBidaiak.getValueAt(erabakitakolerroaEkitaldia, 0);
+										posizioaEkitaldiak = Metodoak.bidaiarenZerbitzuak(bidaiak2, erabakitakoID);
 										btnEkitaldiEzabatu.setEnabled(true);
-										System.out.println("3-"+erabakitakolerroaEkitaldia);
 										btnEkitaldiEzabatu.addActionListener(new ActionListener() {
 											public void actionPerformed(ActionEvent e) {
-												if (erabakitakolerroaEkitaldia != -1) {
-												System.out.println("4-"+erabakitakolerroaEkitaldia);
-												modelEkitaldiak.removeRow(erabakitakolerroaEkitaldia);
-												System.out.println("5-"+erabakitakolerroaEkitaldia);
+												if (erabakitakolerroaEkitaldia != -1)
+													modelEkitaldiak.removeRow(erabakitakolerroaEkitaldia);
+												if (bidaiak2.get(posizioaBidaiak).getZerbitzuak().get(posizioaEkitaldiak).getId_hegaldia()!=-1) {
+													modelo.DAOak.Zerbitzua.ezabatuZerbitzuak(bidaiak2.get(posizioaBidaiak).getZerbitzuak().get(posizioaEkitaldiak).getId_hegaldia());
+													bidaiak2.get(posizioaBidaiak).getZerbitzuak().remove(posizioaEkitaldiak);
+												} else if (bidaiak2.get(posizioaBidaiak).getZerbitzuak().get(posizioaEkitaldiak).getIdOstatua()!=-1) {
+													modelo.DAOak.Zerbitzua.ezabatuZerbitzuak(bidaiak2.get(posizioaBidaiak).getZerbitzuak().get(posizioaEkitaldiak).getIdOstatua());
+													bidaiak2.get(posizioaBidaiak).getZerbitzuak().remove(posizioaEkitaldiak);
+												} else if (bidaiak2.get(posizioaBidaiak).getZerbitzuak().get(posizioaEkitaldiak).getJardueraId()!=-1){
+													modelo.DAOak.Zerbitzua.ezabatuZerbitzuak(bidaiak2.get(posizioaBidaiak).getZerbitzuak().get(posizioaEkitaldiak).getJardueraId());
+													bidaiak2.get(posizioaBidaiak).getZerbitzuak().remove(posizioaEkitaldiak);
 												}
-												/*if (bidaiak.get(posizioa).getZerbitzuak().get().getId_hegaldia()!=-1) {
-													modelo.DAOak.Zerbitzua.ezabatuZerbitzuak(bidaiak.get(posizioa).getId_hegaldia());
-												} else if (bidaiak.get(posizioa).getIdOstatua()!=-1) {
-													modelo.DAOak.Zerbitzua.ezabatuZerbitzuak(bidaiak.get(posizioa).getId_hegaldia());
-												} else if (bidaiak.get(posizioa).getJardueraId()!=-1){
-													modelo.DAOak.Zerbitzua.ezabatuZerbitzuak(bidaiak.get(posizioa).getId_hegaldia());
-												}*/
-												
-												//tableBidaiak.clearSelection();
-												//tableEkitaldiak.clearSelection();
 												btnEkitaldiEzabatu.setEnabled(false);
 												btnBidaiEzabatu.setEnabled(false);
 											}
