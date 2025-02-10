@@ -1,4 +1,6 @@
+
 package modelo.POJOak;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,6 +16,16 @@ public class Bidaia {
 	private ArrayList<Zerbitzua> Zerbitzuak;
 	
 	public Bidaia(int id, String izena, String deskirbapena, java.sql.Date bidaia_hasi, java.sql.Date bidaia_amaitu, String herrialdea, String mota, ArrayList<Zerbitzua> Zerbitzuak) {
+		this.id = id;
+		this.izena = izena;
+		this.deskirbapena = deskirbapena;
+		this.bidaia_hasi = bidaia_hasi;
+		this.bidaia_amaitu = bidaia_amaitu;
+		this.herrialdea = herrialdea;
+		this.mota = mota;
+		this.setZerbitzuak(Zerbitzuak);
+	}
+	public Bidaia(int id, String izena, String deskirbapena, Date bidaia_hasi, Date bidaia_amaitu, String herrialdea, String mota, ArrayList<Zerbitzua> Zerbitzuak) {
 		this.id = id;
 		this.izena = izena;
 		this.deskirbapena = deskirbapena;

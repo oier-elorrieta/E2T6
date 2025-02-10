@@ -1,6 +1,5 @@
+
 package vista;
-
-
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,9 +9,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import controlador.Metodoak;
 import modelo.POJOak.Bidaia;
-
 import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
@@ -31,7 +30,7 @@ public class BidaiaketaEkitaldiak extends JFrame {
 	private int posizioaEkitaldiak = 0;
 	private int erabakitakolerroaBidaia;
 	private int erabakitakolerroaEkitaldia;
-	private ArrayList<modelo.POJOak.Bidaia> bidaiak2 = new ArrayList<modelo.POJOak.Bidaia>();
+	public ArrayList<modelo.POJOak.Bidaia> bidaiak2 = new ArrayList<modelo.POJOak.Bidaia>();
 
 	/**
 	 * Launch the application.
@@ -70,9 +69,6 @@ public class BidaiaketaEkitaldiak extends JFrame {
 					b.getBidaia_amaitu(), b.getHerrialdea()};
 			modelBidaiak.addRow(row);
 		}
-		
-		//for(recorrer la array de viajes)
-		//tableEkitaldiak.add(cargar cada objeto viaje en la tabla)
 		
 		JButton btnBidaiEzabatu = new JButton("Bidai Ezabatu");
 		JButton btnEkitaldiEzabatu = new JButton("Ekitaldi Ezabatu");
@@ -149,10 +145,7 @@ public class BidaiaketaEkitaldiak extends JFrame {
 				}
 			}
 		});
-		
-		
-		//for(recorrer la array de servicios de X viaje)
-		//tableEkitaldiak.add(cargar cada objeto servicio en la tabla)
+		bidaiak=bidaiak2;
 		
 		tableEkitaldiak = new JTable(modelEkitaldiak);
 		tableEkitaldiak.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -160,16 +153,61 @@ public class BidaiaketaEkitaldiak extends JFrame {
 		contentPane.add(tableEkitaldiak);
 		
 		JButton btnBidaiBerria = new JButton("Bidai Berria");
+		btnBidaiBerria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							BidaiBerria frame = new BidaiBerria(erabiltzaile, bidaiak2);
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+                    }
+				});
+				dispose();
+			}
+		});
 		btnBidaiBerria.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnBidaiBerria.setBounds(639, 66, 167, 23);
 		contentPane.add(btnBidaiBerria);
 		
 		JButton btnEkitaldiBerria = new JButton("Ekitaldi Berria");
+		btnEkitaldiBerria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Zerbitzuak frame = new Zerbitzuak(erabiltzaile);
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+                    }
+				});
+				dispose();
+			}
+		});
 		btnEkitaldiBerria.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnEkitaldiBerria.setBounds(639, 220, 167, 23);
 		contentPane.add(btnEkitaldiBerria);
 		
 		btnAtera = new JButton("Atera");
+		btnAtera.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Login frame = new Login();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+                    }
+				});
+				dispose();
+			}
+		});
 		btnAtera.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnAtera.setBounds(639, 372, 167, 23);
 		contentPane.add(btnAtera);
@@ -179,15 +217,9 @@ public class BidaiaketaEkitaldiak extends JFrame {
 		btnEskaintzaAtera.setBounds(67, 408, 512, 23);
 		contentPane.add(btnEskaintzaAtera);
 		
-		
 		btnEkitaldiEzabatu.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnEkitaldiEzabatu.setBounds(639, 256, 167, 23);
 		contentPane.add(btnEkitaldiEzabatu);
-		
-		
-		
-		
-			
 		
 		btnBidaiEzabatu.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnBidaiEzabatu.setBounds(639, 100, 167, 23);

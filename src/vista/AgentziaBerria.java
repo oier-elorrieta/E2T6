@@ -1,12 +1,11 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import controlador.Main;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -92,15 +91,30 @@ public class AgentziaBerria extends JFrame {
 		textLogoa.setBounds(243, 230, 196, 20);
 		contentPane.add(textLogoa);
 		
-		JComboBox comboBoxLangileKopurua = new JComboBox();
+		JLabel lblDatuakBete = new JLabel("Datu guztiak bete");
+		lblDatuakBete.setForeground(new Color(255, 0, 0));
+		lblDatuakBete.setBounds(73, 266, 99, 14);
+		contentPane.add(lblDatuakBete);
+		lblDatuakBete.setVisible(false);
+		
+		JComboBox<String> comboBoxLangileKopurua = new JComboBox<>();
 		comboBoxLangileKopurua.setBounds(243, 140, 196, 22);
 		contentPane.add(comboBoxLangileKopurua);
 		
-		JComboBox comboBoxAgentziaMota = new JComboBox();
+		JComboBox<String> comboBoxAgentziaMota = new JComboBox<>();
 		comboBoxAgentziaMota.setBounds(243, 182, 196, 22);
 		contentPane.add(comboBoxAgentziaMota);
 		
 		JButton btnGorde = new JButton("Gorde");
+		btnGorde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!textIzena.getText().equals("")&&!textMarkaKolorea.getText().equals("")&&comboBoxLangileKopurua.getSelectedItem()!=null&&comboBoxAgentziaMota.getSelectedItem()!=null&&!textLogoa.getText().equals("")) {
+					
+				} else {
+					lblDatuakBete.setVisible(true);
+				}
+			}
+		});
 		btnGorde.setBounds(101, 291, 139, 28);
 		contentPane.add(btnGorde);
 		

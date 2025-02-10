@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,25 +24,14 @@ public class Jarduera extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Jarduera frame = new Jarduera();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public Jarduera() {
+	public Jarduera(String erabiltzaile) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 730, 530);
+		setBounds(100, 100, 410, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -57,7 +47,7 @@ public class Jarduera extends JFrame {
 		contentPane.add(lblEkitaldiMota);
 		
 		JLabel lblDeskripzioa = new JLabel("Deskripzioa:");
-		lblDeskripzioa.setBounds(46, 146, 147, 14);
+		lblDeskripzioa.setBounds(46, 123, 147, 14);
 		contentPane.add(lblDeskripzioa);
 		
 		JLabel lblPrezioa = new JLabel("Prezioa:");
@@ -78,9 +68,9 @@ public class Jarduera extends JFrame {
 		textPrezioa.setBounds(164, 185, 150, 20);
 		contentPane.add(textPrezioa);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(164, 96, 150, 63);
-		contentPane.add(textArea);
+		JTextArea textAreaDeskripzioa = new JTextArea();
+		textAreaDeskripzioa.setBounds(164, 96, 150, 63);
+		contentPane.add(textAreaDeskripzioa);
 		
 		JComboBox<String> comboBoxEkitaldiMota = new JComboBox<>();
 		comboBoxEkitaldiMota.setBounds(164, 61, 150, 22);
@@ -90,13 +80,42 @@ public class Jarduera extends JFrame {
 		data.setBounds(164, 227, 150, 20);
 		contentPane.add(data);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
+		JLabel lblDatuakBete = new JLabel("Datu guztiak bete");
+		lblDatuakBete.setForeground(new Color(255, 0, 0));
+		lblDatuakBete.setBounds(285, 279, 99, 14);
+		contentPane.add(lblDatuakBete);
+		lblDatuakBete.setVisible(false);
+		
+		JButton btnGorde = new JButton("Gorde");
+		btnGorde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(data.getDate());
+				if(textEkitaldiIzena.getText().equals("")&&comboBoxEkitaldiMota.getSelectedItem()!=null&&textAreaDeskripzioa.getText().equals("")&&textPrezioa.getText().equals("")&&data.getDate()!=null) {
+					
+				} else {
+					lblDatuakBete.setVisible(true);
+				}
 			}
 		});
-		btnNewButton.setBounds(10, 457, 89, 23);
-		contentPane.add(btnNewButton);
+		btnGorde.setBounds(46, 275, 89, 23);
+		contentPane.add(btnGorde);
+		
+		JButton btnItzuli = new JButton("Itzuli");
+		btnItzuli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Zerbitzuak frame = new Zerbitzuak(erabiltzaile);
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+                    }
+				});
+				dispose();
+			}
+		});
+		btnItzuli.setBounds(164, 275, 89, 23);
+		contentPane.add(btnItzuli);
 	}
 }
