@@ -16,7 +16,7 @@ public class Agentzia {
 		String sql = "select ID, Izena, Logoa, Markaren_Kolore, Erabiltzailea, Pasahitza, am.Mota, lk.Kopurua "
 				+ "from agentzia_mota as am join agentzia as a on a.Kod_Mota = am.Kod "
 				+ "join langile_kop as lk on a.Langile_Kop=lk.Kod "
-				+ "where Erabiltzailea = '" + erabiltzaile + "'" + ";";
+				+ "where Erabiltzailea = '" + erabiltzaile + "';";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 	             Statement stmt = conn.createStatement();
@@ -29,8 +29,8 @@ public class Agentzia {
 				agentzia.setMarkaKolorea(rs.getString("Markaren_Kolore"));
 				agentzia.setErabiltzailea(rs.getString("Erabiltzailea"));
 				agentzia.setPasahitza(rs.getString("Pasahitza"));
-				agentzia.setMota( rs.getString("am.Mota"));
-				agentzia.setLangileKop(rs.getString("lk.Kopurua"));
+				agentzia.setMota(rs.getString("agentzia_mota.Mota"));
+				agentzia.setLangileKop(rs.getString("langile_kop.Kopurua"));
             }
 			return agentzia;
 		} catch (SQLException e) {
@@ -82,13 +82,13 @@ public class Agentzia {
 	}
 	
 	public static void agentziaBerria(String izena, String logoa, String marka_Kolorea, String erabiltzaile, String pasahitza, String mota, String langile_Kop) {
-		String sql = "insert into Agentzia"
-				+ "values (\"" + null + "\", \"" + izena + "\", \"" + logoa + "\", \"" + marka_Kolorea + "\", \"" + erabiltzaile + "\", \"" + pasahitza +
-				"\", \"" + mota + "\", \"" + langile_Kop + "\")";
+		String sql = "insert into Agentzia (Izena, Logoa, Markaren_Kolore, Erabiltzailea, Pasahitza, Kod_Mota, Langile_Kop) "
+				+ "values ('" + izena + "', '" + logoa + "', '" + marka_Kolorea + "', '" + erabiltzaile + "', '" + pasahitza +
+				"', '" + mota + "', '" + langile_Kop + "');";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 		         Statement stmt = conn.createStatement()) {
-				@SuppressWarnings("unused")
+				@SuppressWarnings("unused") 
 				int rs = stmt.executeUpdate(sql);
 			
 		} catch (SQLException e) {

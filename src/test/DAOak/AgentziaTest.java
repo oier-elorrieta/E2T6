@@ -18,7 +18,7 @@ public class AgentziaTest {
     @BeforeClass
     public static void setUpDatabase() throws Exception {
         // Habilitar modo prueba en Conexioa
-        controlador.Conexioa.enableTestMode();
+        controlador.Conexioa.enableTestMode(); 
         connection =  controlador.Conexioa.obtenerConexion();
 
         try (Statement stmt = connection.createStatement()) {
@@ -60,6 +60,19 @@ public class AgentziaTest {
         assertNotNull(agentzia);
         assertEquals("Test Agentzia", agentzia.getIzena());
         assertEquals("testUser", agentzia.getErabiltzailea());
+        assertEquals("logo.png", agentzia.getLogoa());
+        assertEquals("testMota", agentzia.getMota());
+        assertEquals("testKopurua", agentzia.getLangileKop());
+    }
+    
+   @Test
+    public void testAgentziaBerria() {
+    	modelo.DAOak.Agentzia.agentziaBerria("Test Agentzia 2", "logo2.png", "FFFFFH", "testUser2", "testPass2", "TM", "TL");
+    	
+    	modelo.POJOak.Agentzia agentzia = modelo.DAOak.Agentzia.cargatuAgentziak("testUser2");
+    	assertNotNull(agentzia);
+        assertEquals("Test Agentzia 2", agentzia.getIzena());
+        assertEquals("testUser2", agentzia.getErabiltzailea());
         assertEquals("testMota", agentzia.getMota());
         assertEquals("testKopurua", agentzia.getLangileKop());
     }
