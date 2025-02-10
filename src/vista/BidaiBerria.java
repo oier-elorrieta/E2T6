@@ -140,14 +140,8 @@ public class BidaiBerria extends JFrame {
 				if (!textBidaiarenIzena.getText().equals("")&&!textAreaDeskribapena.getText().equals("")&&comboBoxHerrialde.getSelectedItem()!=null&&comboBoxBidaiarenMota!=null) {
 					if (BidaiaHasiera.getDate()!=null&&BidaiaAmaiera.getDate()!=null) {
 						if (BidaiaAmaiera.getDate().after(BidaiaHasiera.getDate())) {
-							int idBidaia;
-							if (bidaiak.size()==0) {
-								idBidaia=1;
-							} else {
-								idBidaia=bidaiak.get(bidaiak.size()-1).getId()+1;
-							}
 							ArrayList<modelo.POJOak.Zerbitzua> Zerbitzuak = null;
-							modelo.POJOak.Bidaia bidaiaBerria = new modelo.POJOak.Bidaia(idBidaia,textBidaiarenIzena.getText(),
+							modelo.POJOak.Bidaia bidaiaBerria = new modelo.POJOak.Bidaia(-1,textBidaiarenIzena.getText(),
 									textAreaDeskribapena.toString(),BidaiaHasiera.getDate(),BidaiaAmaiera.getDate(),comboBoxHerrialde.getSelectedItem().toString(),
 									comboBoxBidaiarenMota.getSelectedItem().toString(),Zerbitzuak);
 							bidaiak.add(bidaiaBerria);

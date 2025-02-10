@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import controlador.Conexioa;
 
@@ -23,14 +21,14 @@ public class Agentzia {
 	             ResultSet rs = stmt.executeQuery(sql)) {
 			
 			while (rs.next()) {
-				agentzia.setId(rs.getInt("ID"));
-				agentzia.setIzena(rs.getString("Izena"));
-				agentzia.setLogoa(rs.getString("Logoa"));
-				agentzia.setMarkaKolorea(rs.getString("Markaren_Kolore"));
-				agentzia.setErabiltzailea(rs.getString("Erabiltzailea"));
-				agentzia.setPasahitza(rs.getString("Pasahitza"));
-				agentzia.setMota(rs.getString("agentzia_mota.Mota"));
-				agentzia.setLangileKop(rs.getString("langile_kop.Kopurua"));
+				agentzia.setId(rs.getInt(1));
+				agentzia.setIzena(rs.getString(2));
+				agentzia.setLogoa(rs.getString(3));
+				agentzia.setMarkaKolorea(rs.getString(4));
+				agentzia.setErabiltzailea(rs.getString(5));
+				agentzia.setPasahitza(rs.getString(6));
+				agentzia.setMota(rs.getString(7));
+				agentzia.setLangileKop(rs.getString(8));
             }
 			return agentzia;
 		} catch (SQLException e) {

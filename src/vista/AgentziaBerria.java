@@ -22,6 +22,8 @@ public class AgentziaBerria extends JFrame {
 	private JTextField textIzena;
 	private JTextField textMarkaKolorea;
 	private JTextField textLogoa;
+	private JTextField textErabiltzailea;
+	private JTextField textPasahitza;
 
 	/**
 	 * Launch the application.
@@ -44,7 +46,7 @@ public class AgentziaBerria extends JFrame {
 	 */
 	public AgentziaBerria() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 520, 396);
+		setBounds(100, 100, 520, 483);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -93,7 +95,7 @@ public class AgentziaBerria extends JFrame {
 		
 		JLabel lblDatuakBete = new JLabel("Datu guztiak bete");
 		lblDatuakBete.setForeground(new Color(255, 0, 0));
-		lblDatuakBete.setBounds(73, 266, 99, 14);
+		lblDatuakBete.setBounds(73, 349, 99, 14);
 		contentPane.add(lblDatuakBete);
 		lblDatuakBete.setVisible(false);
 		
@@ -108,14 +110,15 @@ public class AgentziaBerria extends JFrame {
 		JButton btnGorde = new JButton("Gorde");
 		btnGorde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!textIzena.getText().equals("")&&!textMarkaKolorea.getText().equals("")&&comboBoxLangileKopurua.getSelectedItem()!=null&&comboBoxAgentziaMota.getSelectedItem()!=null&&!textLogoa.getText().equals("")) {
-					
+				if (!textIzena.getText().equals("")&&!textMarkaKolorea.getText().equals("")&&comboBoxLangileKopurua.getSelectedItem()!=null&&comboBoxAgentziaMota.getSelectedItem()!=null&&!textLogoa.getText().equals("")&&!textErabiltzailea.getText().equals("")&&!textPasahitza.getText().equals("")) {
+					modelo.POJOak.Agentzia AgentziaBerria = new modelo.POJOak.Agentzia(-1,textIzena.getText(),textLogoa.getText(),textMarkaKolorea.getText(),textErabiltzailea.getText(),textPasahitza.getText(),comboBoxLangileKopurua.getSelectedItem().toString(),comboBoxAgentziaMota.getSelectedItem().toString());
+					modelo.DAOak.Agentzia.agentziaBerria(AgentziaBerria.getIzena(), AgentziaBerria.getLogoa(), AgentziaBerria.getMarkaKolorea(), AgentziaBerria.getErabiltzailea(), AgentziaBerria.getPasahitza(), AgentziaBerria.getMota(), AgentziaBerria.getLangileKop());
 				} else {
 					lblDatuakBete.setVisible(true);
 				}
 			}
 		});
-		btnGorde.setBounds(101, 291, 139, 28);
+		btnGorde.setBounds(73, 374, 139, 28);
 		contentPane.add(btnGorde);
 		
 		JButton btnUtzi = new JButton("Utzi");
@@ -134,7 +137,27 @@ public class AgentziaBerria extends JFrame {
 				dispose();
 			}
 		});
-		btnUtzi.setBounds(281, 291, 139, 28);
+		btnUtzi.setBounds(281, 374, 139, 28);
 		contentPane.add(btnUtzi);
+		
+		JLabel lblPasahitza = new JLabel("Pasahitza");
+		lblPasahitza.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblPasahitza.setBounds(73, 316, 139, 21);
+		contentPane.add(lblPasahitza);
+		
+		JLabel lblErabiltzailea = new JLabel("Erabiltzailea");
+		lblErabiltzailea.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblErabiltzailea.setBounds(73, 273, 139, 21);
+		contentPane.add(lblErabiltzailea);
+		
+		textErabiltzailea = new JTextField();
+		textErabiltzailea.setColumns(10);
+		textErabiltzailea.setBounds(243, 275, 196, 20);
+		contentPane.add(textErabiltzailea);
+		
+		textPasahitza = new JTextField();
+		textPasahitza.setColumns(10);
+		textPasahitza.setBounds(243, 318, 196, 20);
+		contentPane.add(textPasahitza);
 	}
 }

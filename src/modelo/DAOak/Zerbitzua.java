@@ -31,7 +31,6 @@ public class Zerbitzua {
 			
 			while (rs.next()) {
 				if(rs.getInt("h.ID") != 0) {
-					System.out.println(rs.getInt("h.ID")+"id hegaldi");
 					int ID_Buelta = 0;
 					try {
 						ID_Buelta = rs.getInt("h.ID_buelta");

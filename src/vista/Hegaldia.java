@@ -14,6 +14,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class Hegaldia extends JFrame {
@@ -22,7 +23,6 @@ public class Hegaldia extends JFrame {
 	private JPanel contentPane;
 	private JTextField textHIzena;
 	private JTextField textHegaldiKod;
-	private JTextField textAerolinea;
 	private JTextField textIrteeraOrdua;
 	private JTextField textIraupena;
 	private JTextField textIraupenaItzuli;
@@ -97,11 +97,6 @@ public class Hegaldia extends JFrame {
 		textHegaldiKod.setBounds(172, 267, 150, 20);
 		contentPane.add(textHegaldiKod);
 		
-		textAerolinea = new JTextField();
-		textAerolinea.setColumns(10);
-		textAerolinea.setBounds(172, 295, 150, 20);
-		contentPane.add(textAerolinea);
-		
 		textIrteeraOrdua = new JTextField();
 		textIrteeraOrdua.setColumns(10);
 		textIrteeraOrdua.setBounds(172, 323, 150, 20);
@@ -123,10 +118,13 @@ public class Hegaldia extends JFrame {
 		contentPane.add(comboBoxIbilbidea);
 		
 		JComboBox<String> comboBoxHelmugakoAireportua = new JComboBox<>();
+		ArrayList<String> aireportuak = modelo.DAOak.MasterData.cargatuAireportuak();
+		comboBoxHelmugakoAireportua.setModel(new DefaultComboBoxModel<>());
 		comboBoxHelmugakoAireportua.setBounds(172, 208, 150, 20);
 		contentPane.add(comboBoxHelmugakoAireportua);
 		
 		JComboBox<String> comboBoxJatorrizkoaireportua = new JComboBox<>();
+		comboBoxJatorrizkoaireportua.setModel(new DefaultComboBoxModel<>());
 		comboBoxJatorrizkoaireportua.setBounds(172, 180, 150, 20);
 		contentPane.add(comboBoxJatorrizkoaireportua);
 		
@@ -156,10 +154,12 @@ public class Hegaldia extends JFrame {
 		contentPane.add(textHegaldiKodItzuli);
 		
 		JComboBox<String> comboBoxHelmugakoAireportuaItzuli = new JComboBox<>();
+		comboBoxHelmugakoAireportuaItzuli.setModel(new DefaultComboBoxModel<>());
 		comboBoxHelmugakoAireportuaItzuli.setBounds(493, 208, 150, 20);
 		contentPane.add(comboBoxHelmugakoAireportuaItzuli);
 		
 		JComboBox<String> comboBoxJatorrizkoaireportuaItzuli = new JComboBox<>();
+		comboBoxJatorrizkoaireportuaItzuli.setModel(new DefaultComboBoxModel<>());
 		comboBoxJatorrizkoaireportuaItzuli.setBounds(493, 180, 150, 20);
 		contentPane.add(comboBoxJatorrizkoaireportuaItzuli);
 		
@@ -284,7 +284,7 @@ public class Hegaldia extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				if (comboBoxIbilbidea.getSelectedItem().equals("Joan")) {
-					if (textHIzena.getText().equals("")&&comboBoxHMota.getSelectedItem()!=null&&comboBoxIbilbidea.getSelectedItem()!=null&&comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&textAerolinea.getText().equals("")&&textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")) {				
+					if (textHIzena.getText().equals("")&&comboBoxHMota.getSelectedItem()!=null&&comboBoxIbilbidea.getSelectedItem()!=null&&comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")) {				
 						try {
 							@SuppressWarnings("unused")
 							int prezioa = Integer.parseInt(textPrezioTotala.getText());
@@ -298,7 +298,7 @@ public class Hegaldia extends JFrame {
 						lblDatuakBete.setVisible(true);
 					}
 				} else {
-					if (textHIzena.getText().equals("")&&comboBoxHMota.getSelectedItem()!=null&&comboBoxIbilbidea.getSelectedItem()!=null&&comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&textAerolinea.getText().equals("")&&textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")&&comboBoxJatorrizkoaireportuaItzuli.getSelectedItem()!=null&&comboBoxHelmugakoAireportuaItzuli.getSelectedItem()!=null&&ItzultzekoData.getDate()!=null&&textHegaldiKodItzuli.getText().equals("")&&textAerolineaItzuli.getText().equals("")&&textItzuleraOrdua.getText().equals("")&&textIraupenaItzuli.getText().equals("")) {						
+					if (textHIzena.getText().equals("")&&comboBoxHMota.getSelectedItem()!=null&&comboBoxIbilbidea.getSelectedItem()!=null&&comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")&&comboBoxJatorrizkoaireportuaItzuli.getSelectedItem()!=null&&comboBoxHelmugakoAireportuaItzuli.getSelectedItem()!=null&&ItzultzekoData.getDate()!=null&&textHegaldiKodItzuli.getText().equals("")&&textAerolineaItzuli.getText().equals("")&&textItzuleraOrdua.getText().equals("")&&textIraupenaItzuli.getText().equals("")) {						
 						try {
 							@SuppressWarnings("unused")
 							int prezioa = Integer.parseInt(textPrezioTotala.getText());
