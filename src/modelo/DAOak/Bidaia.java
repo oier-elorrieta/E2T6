@@ -1,6 +1,7 @@
 package modelo.DAOak;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,4 +51,18 @@ public class Bidaia {
         }
 	}
 	
+	public static void bidaiaBerria(String izena, String deskribapena, Date Data_Hasiera, Date Data_Amaiera, int IDAgentzia, String Herrialdeak, String mota) {
+		String sql = "insert into Bidaiak"
+				+ "values (\"" + null + "\", \"" + izena + "\", \"" + deskribapena + "\", \"" + Data_Hasiera + "\", \"" + Data_Amaiera + "\", \"" + IDAgentzia + "\", \"" + Herrialdeak +
+				"\", \"" + mota + "\")";
+		
+		try (Connection conn = Conexioa.obtenerConexion();
+		         Statement stmt = conn.createStatement()) {
+				@SuppressWarnings("unused")
+				int rs = stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }			
+	}
 }

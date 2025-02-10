@@ -16,7 +16,7 @@ public class Agentzia {
 		String sql = "select ID, Izena, Logoa, Markaren_Kolore, Erabiltzailea, Pasahitza, am.Mota, lk.Kopurua "
 				+ "from agentzia_mota as am join agentzia as a on a.Kod_Mota = am.Kod "
 				+ "join langile_kop as lk on a.Langile_Kop=lk.Kod "
-				+ "where Erabiltzailea = \"" + erabiltzaile + "\"" + ";";
+				+ "where Erabiltzailea = '" + erabiltzaile + "'" + ";";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 	             Statement stmt = conn.createStatement();
@@ -43,7 +43,7 @@ public class Agentzia {
 		String erabiltzaileBD = null;
 		String sql = "select Erabiltzailea "
 				+ "from agentzia "
-				+ "where Erabiltzailea = \"" + erabiltzailea + "\"";
+				+ "where Erabiltzailea = '" + erabiltzailea + "';";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 	             Statement stmt = conn.createStatement();
@@ -64,7 +64,7 @@ public class Agentzia {
 		String pasahithzaBD = null;
 		String sql = "select Pasahitza "
 				+ "from agentzia "
-				+ "where Erabiltzailea = \"" + erabiltzailea + "\"";
+				+ "where Erabiltzailea = '" + erabiltzailea + "';";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 	             Statement stmt = conn.createStatement();
@@ -79,5 +79,20 @@ public class Agentzia {
            pasahithzaBD = "Ez da existitzen";
            return pasahithzaBD;
        }
+	}
+	
+	public static void agentziaBerria(String izena, String logoa, String marka_Kolorea, String erabiltzaile, String pasahitza, String mota, String langile_Kop) {
+		String sql = "insert into Agentzia"
+				+ "values (\"" + null + "\", \"" + izena + "\", \"" + logoa + "\", \"" + marka_Kolorea + "\", \"" + erabiltzaile + "\", \"" + pasahitza +
+				"\", \"" + mota + "\", \"" + langile_Kop + "\")";
+		
+		try (Connection conn = Conexioa.obtenerConexion();
+		         Statement stmt = conn.createStatement()) {
+				@SuppressWarnings("unused")
+				int rs = stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }			
 	}
 }

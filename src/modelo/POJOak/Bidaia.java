@@ -100,8 +100,5 @@ public class Bidaia {
 				+ getMota() + ", getBidaia_hasi()=" + getBidaia_hasi() + ", getBidaia_amaitu()=" + getBidaia_amaitu()
 				+ ", getHerrialdea()=" + getHerrialdea() + ", getDeskirbapena()=" + getDeskirbapena() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
-
-
-	
+	}	
 }
