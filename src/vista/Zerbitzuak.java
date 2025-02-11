@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class Zerbitzuak extends JFrame {
@@ -22,7 +23,7 @@ public class Zerbitzuak extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Zerbitzuak(String erabiltzaile) {
+	public Zerbitzuak(String erabiltzaile, ArrayList<modelo.POJOak.Bidaia> bidaiak, int erabakitakoIDBidaia) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -37,7 +38,7 @@ public class Zerbitzuak extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Hegaldia frame = new Hegaldia(erabiltzaile);
+							Hegaldia frame = new Hegaldia(erabiltzaile, bidaiak, erabakitakoIDBidaia);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -47,6 +48,7 @@ public class Zerbitzuak extends JFrame {
 				dispose();
 			}
 		});
+		
 		btnHegaldia.setBounds(10, 31, 118, 111);
 		contentPane.add(btnHegaldia);
 		
@@ -56,7 +58,7 @@ public class Zerbitzuak extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Ostatua frame = new Ostatua(erabiltzaile);
+							Ostatua frame = new Ostatua(erabiltzaile, bidaiak, erabakitakoIDBidaia);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -75,7 +77,7 @@ public class Zerbitzuak extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Jarduera frame = new Jarduera(erabiltzaile);
+							Jarduera frame = new Jarduera(erabiltzaile, bidaiak, erabakitakoIDBidaia);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

@@ -28,8 +28,8 @@ public class Hegaldia extends JFrame {
 	private JTextField textIraupenaItzuli;
 	private JTextField textItzuleraOrdua;
 	private JTextField textPrezioTotala;
-	private JTextField textAerolineaItzuli;
 	private JTextField textHegaldiKodItzuli;
+	private JTextField txtHegaldia;
 
 	/**
 	 * Launch the application.
@@ -38,7 +38,7 @@ public class Hegaldia extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Hegaldia(String erabiltzaile) {
+	public Hegaldia(String erabiltzaile, ArrayList<modelo.POJOak.Bidaia> bidaiak, int erabakitakoIDBidaia) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 727, 530);
 		contentPane = new JPanel();
@@ -107,24 +107,22 @@ public class Hegaldia extends JFrame {
 		textIraupena.setBounds(172, 351, 150, 20);
 		contentPane.add(textIraupena);
 		
-		JComboBox<String> comboBoxHMota = new JComboBox<>();
-		comboBoxHMota.setBounds(172, 63, 150, 20);
-		contentPane.add(comboBoxHMota);
-		
 		JComboBox<String> comboBoxIbilbidea = new JComboBox<>();
 		
 		comboBoxIbilbidea.setModel(new DefaultComboBoxModel<>(new String[] {"Joan", "Joan eta Etorri"}));
 		comboBoxIbilbidea.setBounds(172, 91, 150, 20);
 		contentPane.add(comboBoxIbilbidea);
 		
-		JComboBox<String> comboBoxHelmugakoAireportua = new JComboBox<>();
 		ArrayList<String> aireportuak = modelo.DAOak.MasterData.cargatuAireportuak();
-		comboBoxHelmugakoAireportua.setModel(new DefaultComboBoxModel<>());
+		String[] aireportuakString = aireportuak.toArray(new String[aireportuak.size()]);
+		
+		JComboBox<String> comboBoxHelmugakoAireportua = new JComboBox<>();
+		comboBoxHelmugakoAireportua.setModel(new DefaultComboBoxModel<>(aireportuakString));
 		comboBoxHelmugakoAireportua.setBounds(172, 208, 150, 20);
 		contentPane.add(comboBoxHelmugakoAireportua);
 		
 		JComboBox<String> comboBoxJatorrizkoaireportua = new JComboBox<>();
-		comboBoxJatorrizkoaireportua.setModel(new DefaultComboBoxModel<>());
+		comboBoxJatorrizkoaireportua.setModel(new DefaultComboBoxModel<>(aireportuakString));
 		comboBoxJatorrizkoaireportua.setBounds(172, 180, 150, 20);
 		contentPane.add(comboBoxJatorrizkoaireportua);
 		
@@ -143,25 +141,33 @@ public class Hegaldia extends JFrame {
 		textPrezioTotala.setBounds(172, 400, 150, 20);
 		contentPane.add(textPrezioTotala);
 		
-		textAerolineaItzuli = new JTextField();
-		textAerolineaItzuli.setColumns(10);
-		textAerolineaItzuli.setBounds(493, 295, 150, 20);
-		contentPane.add(textAerolineaItzuli);
-		
 		textHegaldiKodItzuli = new JTextField();
 		textHegaldiKodItzuli.setColumns(10);
 		textHegaldiKodItzuli.setBounds(493, 267, 150, 20);
 		contentPane.add(textHegaldiKodItzuli);
 		
 		JComboBox<String> comboBoxHelmugakoAireportuaItzuli = new JComboBox<>();
-		comboBoxHelmugakoAireportuaItzuli.setModel(new DefaultComboBoxModel<>());
+		comboBoxHelmugakoAireportuaItzuli.setModel(new DefaultComboBoxModel<>(aireportuakString));
 		comboBoxHelmugakoAireportuaItzuli.setBounds(493, 208, 150, 20);
 		contentPane.add(comboBoxHelmugakoAireportuaItzuli);
 		
 		JComboBox<String> comboBoxJatorrizkoaireportuaItzuli = new JComboBox<>();
-		comboBoxJatorrizkoaireportuaItzuli.setModel(new DefaultComboBoxModel<>());
+		comboBoxJatorrizkoaireportuaItzuli.setModel(new DefaultComboBoxModel<>(aireportuakString));
 		comboBoxJatorrizkoaireportuaItzuli.setBounds(493, 180, 150, 20);
 		contentPane.add(comboBoxJatorrizkoaireportuaItzuli);
+		
+		ArrayList<String> aerolineak = modelo.DAOak.MasterData.cargatuAerolinea();
+		String[] aerolineakString = aerolineak.toArray(new String[aerolineak.size()]);
+		
+		JComboBox<String> comboBoxAerolinea = new JComboBox<>();
+		comboBoxAerolinea.setModel(new DefaultComboBoxModel<>(aerolineakString));
+		comboBoxAerolinea.setBounds(172, 294, 150, 20);
+		contentPane.add(comboBoxAerolinea);
+		
+		JComboBox<String> comboBoxAerolineaItzuli = new JComboBox<>();
+		comboBoxAerolineaItzuli.setModel(new DefaultComboBoxModel<>(aerolineakString));
+		comboBoxAerolineaItzuli.setBounds(493, 294, 150, 20);
+		contentPane.add(comboBoxAerolineaItzuli);
 		
 		JLabel lblJatorrizkoAireportuaItzuli = new JLabel("Jatorrizko Aireportua:");
 		lblJatorrizkoAireportuaItzuli.setBounds(343, 183, 140, 14);
@@ -238,7 +244,7 @@ public class Hegaldia extends JFrame {
 					comboBoxHelmugakoAireportuaItzuli.setVisible(true);
 					ItzultzekoData.setVisible(true);
 					textHegaldiKodItzuli.setVisible(true);
-					textAerolineaItzuli.setVisible(true);
+					comboBoxAerolineaItzuli.setVisible(true);
 					textItzuleraOrdua.setVisible(true);
 					textIraupenaItzuli.setVisible(true);
 					ItzultzekoData.setVisible(true);
@@ -255,7 +261,7 @@ public class Hegaldia extends JFrame {
 					comboBoxHelmugakoAireportuaItzuli.setVisible(false);
 					ItzultzekoData.setVisible(false);
 					textHegaldiKodItzuli.setVisible(false);
-					textAerolineaItzuli.setVisible(false);
+					comboBoxAerolineaItzuli.setVisible(false);
 					textItzuleraOrdua.setVisible(false);
 					textIraupenaItzuli.setVisible(false);
 					ItzultzekoData.setVisible(false);
@@ -274,7 +280,7 @@ public class Hegaldia extends JFrame {
 		comboBoxJatorrizkoaireportuaItzuli.setVisible(false);
 		comboBoxHelmugakoAireportuaItzuli.setVisible(false);
 		textHegaldiKodItzuli.setVisible(false);
-		textAerolineaItzuli.setVisible(false);
+		comboBoxAerolineaItzuli.setVisible(false);
 		textItzuleraOrdua.setVisible(false);
 		textIraupenaItzuli.setVisible(false);
 		ItzultzekoData.setVisible(false);
@@ -284,10 +290,11 @@ public class Hegaldia extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				if (comboBoxIbilbidea.getSelectedItem().equals("Joan")) {
-					if (textHIzena.getText().equals("")&&comboBoxHMota.getSelectedItem()!=null&&comboBoxIbilbidea.getSelectedItem()!=null&&comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")) {				
+					if (textHIzena.getText().equals("")&&comboBoxIbilbidea.getSelectedItem()!=null&&comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&comboBoxAerolinea.getSelectedItem()!=null&&textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")) {				
 						try {
 							@SuppressWarnings("unused")
 							int prezioa = Integer.parseInt(textPrezioTotala.getText());
+							modelo.DAOak.Zerbitzua.zerbitzuBerria(erabakitakoIDBidaia);
 							
 						} catch (Exception e2) {
 							lblDatuakBete.setText("Prezioa zenbaki bat izan behar da");
@@ -298,7 +305,13 @@ public class Hegaldia extends JFrame {
 						lblDatuakBete.setVisible(true);
 					}
 				} else {
-					if (textHIzena.getText().equals("")&&comboBoxHMota.getSelectedItem()!=null&&comboBoxIbilbidea.getSelectedItem()!=null&&comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")&&comboBoxJatorrizkoaireportuaItzuli.getSelectedItem()!=null&&comboBoxHelmugakoAireportuaItzuli.getSelectedItem()!=null&&ItzultzekoData.getDate()!=null&&textHegaldiKodItzuli.getText().equals("")&&textAerolineaItzuli.getText().equals("")&&textItzuleraOrdua.getText().equals("")&&textIraupenaItzuli.getText().equals("")) {						
+					if (textHIzena.getText().equals("")&&comboBoxIbilbidea.getSelectedItem()!=null&&
+							comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&
+							JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&comboBoxAerolinea.getSelectedItem()!=null&&
+							textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")&&
+							comboBoxJatorrizkoaireportuaItzuli.getSelectedItem()!=null&&comboBoxHelmugakoAireportuaItzuli.getSelectedItem()!=null&&
+							ItzultzekoData.getDate()!=null&&textHegaldiKodItzuli.getText().equals("")&&comboBoxAerolineaItzuli.getSelectedItem()!=null&&
+							textItzuleraOrdua.getText().equals("")&&textIraupenaItzuli.getText().equals("")) {						
 						try {
 							@SuppressWarnings("unused")
 							int prezioa = Integer.parseInt(textPrezioTotala.getText());
@@ -322,7 +335,7 @@ public class Hegaldia extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Zerbitzuak frame = new Zerbitzuak(erabiltzaile);
+							Zerbitzuak frame = new Zerbitzuak(erabiltzaile, bidaiak, erabakitakoIDBidaia);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -334,5 +347,14 @@ public class Hegaldia extends JFrame {
 		});
 		btnUtzi.setBounds(147, 457, 89, 23);
 		contentPane.add(btnUtzi);
+		
+		txtHegaldia = new JTextField();
+		txtHegaldia.setText("Hegaldia");
+		txtHegaldia.setEditable(false);
+		txtHegaldia.setColumns(10);
+		txtHegaldia.setBounds(172, 63, 150, 20);
+		contentPane.add(txtHegaldia);
+		
+		
 	}
 }

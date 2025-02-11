@@ -12,7 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class Ostatua extends JFrame {
 
@@ -21,6 +23,7 @@ public class Ostatua extends JFrame {
 	private JTextField textEIzena;
 	private JTextField textHerria;
 	private JTextField textPrezioa;
+	private JTextField textEkitaldiMota;
 
 	/**
 	 * Launch the application.
@@ -30,7 +33,7 @@ public class Ostatua extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Ostatua(String erabiltzaile) {
+	public Ostatua(String erabiltzaile, ArrayList<modelo.POJOak.Bidaia> bidaiak, int erabakitakoIDBidaia) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 290);
 		contentPane = new JPanel();
@@ -69,11 +72,11 @@ public class Ostatua extends JFrame {
 		textHerria.setBounds(172, 122, 120, 20);
 		contentPane.add(textHerria);
 		
-		JComboBox<String> comboBoxEMota = new JComboBox<>();
-		comboBoxEMota.setBounds(172, 63, 150, 20);
-		contentPane.add(comboBoxEMota);
+		ArrayList<String> LogelaMota = modelo.DAOak.MasterData.cargatuLogelaMota();
+		String[] logelaMotaString = LogelaMota.toArray(new String[LogelaMota.size()]);
 		
 		JComboBox<String> comboBoxLogelaMota = new JComboBox<>();
+		comboBoxLogelaMota.setModel(new DefaultComboBoxModel<>(logelaMotaString));
 		comboBoxLogelaMota.setBounds(172, 91, 165, 20);
 		contentPane.add(comboBoxLogelaMota);
 		
@@ -118,7 +121,7 @@ public class Ostatua extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Zerbitzuak frame = new Zerbitzuak(erabiltzaile);
+							Zerbitzuak frame = new Zerbitzuak(erabiltzaile, bidaiak, erabakitakoIDBidaia);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -134,7 +137,7 @@ public class Ostatua extends JFrame {
 		JButton btnGorde = new JButton("Gorde");
 		btnGorde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textEIzena.getText().equals("")&&comboBoxEMota.getSelectedItem()!=null&&comboBoxLogelaMota.getSelectedItem()!=null&&textHerria.getText().equals("")&&textPrezioa.getText().equals("")&&JoatekoData.getDate()!=null&&ItzultzekoData.getDate()!=null) {
+				if(textEIzena.getText().equals("")&&comboBoxLogelaMota.getSelectedItem()!=null&&textHerria.getText().equals("")&&textPrezioa.getText().equals("")&&JoatekoData.getDate()!=null&&ItzultzekoData.getDate()!=null) {
 					
 				} else {
 					lblDatuakBete.setVisible(true);
@@ -143,5 +146,12 @@ public class Ostatua extends JFrame {
 		});
 		btnGorde.setBounds(27, 212, 89, 23);
 		contentPane.add(btnGorde);
+		
+		textEkitaldiMota = new JTextField();
+		textEkitaldiMota.setText("Ostatua");
+		textEkitaldiMota.setEditable(false);
+		textEkitaldiMota.setColumns(10);
+		textEkitaldiMota.setBounds(172, 63, 150, 20);
+		contentPane.add(textEkitaldiMota);
 	}
 }

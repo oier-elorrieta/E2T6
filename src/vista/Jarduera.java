@@ -9,9 +9,9 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class Jarduera extends JFrame {
@@ -20,6 +20,7 @@ public class Jarduera extends JFrame {
 	private JPanel contentPane;
 	private JTextField textEkitaldiIzena;
 	private JTextField textPrezioa;
+	private JTextField textEkitaldiMota;
 
 	/**
 	 * Launch the application.
@@ -29,7 +30,7 @@ public class Jarduera extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Jarduera(String erabiltzaile) {
+	public Jarduera(String erabiltzaile, ArrayList<modelo.POJOak.Bidaia> bidaiak, int erabakitakoIDBidaia) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 410, 350);
 		contentPane = new JPanel();
@@ -72,10 +73,6 @@ public class Jarduera extends JFrame {
 		textAreaDeskripzioa.setBounds(164, 96, 150, 63);
 		contentPane.add(textAreaDeskripzioa);
 		
-		JComboBox<String> comboBoxEkitaldiMota = new JComboBox<>();
-		comboBoxEkitaldiMota.setBounds(164, 61, 150, 22);
-		contentPane.add(comboBoxEkitaldiMota);
-		
 		JDateChooser data = new JDateChooser();
 		data.setBounds(164, 227, 150, 20);
 		contentPane.add(data);
@@ -89,7 +86,7 @@ public class Jarduera extends JFrame {
 		JButton btnGorde = new JButton("Gorde");
 		btnGorde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textEkitaldiIzena.getText().equals("")&&comboBoxEkitaldiMota.getSelectedItem()!=null&&textAreaDeskripzioa.getText().equals("")&&textPrezioa.getText().equals("")&&data.getDate()!=null) {
+				if(textEkitaldiIzena.getText().equals("")&&textAreaDeskripzioa.getText().equals("")&&textPrezioa.getText().equals("")&&data.getDate()!=null) {
 					
 				} else {
 					lblDatuakBete.setVisible(true);
@@ -105,7 +102,7 @@ public class Jarduera extends JFrame {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Zerbitzuak frame = new Zerbitzuak(erabiltzaile);
+							Zerbitzuak frame = new Zerbitzuak(erabiltzaile, bidaiak, erabakitakoIDBidaia);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -117,5 +114,12 @@ public class Jarduera extends JFrame {
 		});
 		btnItzuli.setBounds(164, 275, 89, 23);
 		contentPane.add(btnItzuli);
+		
+		textEkitaldiMota = new JTextField();
+		textEkitaldiMota.setText("Jarduera");
+		textEkitaldiMota.setEditable(false);
+		textEkitaldiMota.setColumns(10);
+		textEkitaldiMota.setBounds(164, 68, 150, 20);
+		contentPane.add(textEkitaldiMota);
 	}
 }
