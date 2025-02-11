@@ -9,8 +9,8 @@ public class Conexioa {
     private static final String USUARIO = "root";
     private static final String PASSWORD = "";
     
-    private static final String TEST_URL = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1";
-    private static final String TEST_USER = "sa";
+    private static final String TEST_URL = "jdbc:mysql://localhost:3307/turismo_test";
+    private static final String TEST_USER = "root";
     private static final String TEST_PASSWORD = "";
     
     private static boolean testMode = false;

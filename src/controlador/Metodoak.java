@@ -13,6 +13,5 @@ public class Metodoak {
 			}
 		}
 		return posizioa;
-		
 	}
 }

@@ -33,8 +33,8 @@ public class Zerbitzua{
 	private Date jardueraData;
 	private double jardueraPrezioa;
 	
-	public Zerbitzua(int id_hegaldia, String hegaldiIzena, String jatorria, String helmuga, Date hegaldiData,
-			String kod, String aerolinea, double hegaldiPrezioa, Date hegaldiIrteera, String hegaldiIraupena,
+	public Zerbitzua(int id_hegaldia, String hegaldiIzena, String jatorria, String helmuga, String kod,
+			String aerolinea, double hegaldiPrezioa, Date hegaldiData, Date hegaldiIrteera, String hegaldiIraupena,
 			int id_buelta) {
 		this.id_hegaldia = id_hegaldia;
 		this.hegaldiIzena = hegaldiIzena;
@@ -52,8 +52,8 @@ public class Zerbitzua{
 		
 	}
 
-	public Zerbitzua(int idOstatua, String ostatuIzena, String logela, String hiria, Date ostatuSarrera,
-			Date ostatuIrteera, double ostatuPrezioa) {
+	public Zerbitzua(int idOstatua, String ostatuIzena, String hiria, double ostatuPrezioa, Date ostatuSarrera,
+			Date ostatuIrteera, String logela) {
 		this.idOstatua = idOstatua;
 		this.ostatuIzena = ostatuIzena;
 		this.logela = logela;
@@ -65,12 +65,11 @@ public class Zerbitzua{
 		this.jardueraId=-1;
 	}
 
-	public Zerbitzua(int jardueraId, String jardueraIzena, String jardueraDeskribapena, Date jardueraData,
-			double jardueraPrezioa) {
+	public Zerbitzua(int jardueraId, String jardueraIzena, Date jardueraData,  String jardueraDeskribapena, double jardueraPrezioa) {
 		this.jardueraId = jardueraId;
 		this.jardueraIzena = jardueraIzena;
-		this.jardueraDeskribapena = jardueraDeskribapena;
 		this.jardueraData = jardueraData;
+		this.jardueraDeskribapena = jardueraDeskribapena;
 		this.jardueraPrezioa = jardueraPrezioa;
 		this.id_hegaldia=-1;
 		this.idOstatua=-1;

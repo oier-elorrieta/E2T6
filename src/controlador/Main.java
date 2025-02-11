@@ -29,14 +29,5 @@ public class Main {
                 }
             }
         });
- /*     modelo.POJOak.Agentzia agentzia = new modelo.POJOak.Agentzia();
-        agentzia = modelo.DAOak.Agentzia.cargatuAgentziak();
-        System.out.println(agentzia.toString());
-   */
-        /*        ArrayList<modelo.POJOak.Bidaia> bidaiak = new ArrayList<modelo.POJOak.Bidaia>();
-        bidaiak = modelo.DAOak.Bidaia.cargatuBidaiak(agentzia.getId());
-        System.out.println(bidaiak.toString());
-        */
-        
     }
 }

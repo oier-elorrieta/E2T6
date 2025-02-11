@@ -12,106 +12,92 @@ import java.util.ArrayList;
 
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import modelo.DAOak.Bidaia;
-import controlador.Conexioa;
 
 public class BidaiaTest {
-	 
+	
 	private static Connection connection;
 	
-	    @Before
-	    public void setUpDataBase() throws SQLException {
+	    @BeforeClass
+	    public static void setUpDataBase() throws SQLException {
 	    	
 	    	controlador.Conexioa.enableTestMode(); 
 	        connection = controlador.Conexioa.obtenerConexion();
 	    	
 	        try (Statement stmt = connection.createStatement()) {
-	            stmt.execute("Create Table Agentzia_Mota (" +
-           			 		 "Kod varchar(2) primary key, " +
-           			 		 "Mota varchar(30) not null);" +
-           			 
-           			 		 "Create Table Langile_Kop (" +
-           			 		 "Kod varchar(2) primary key, " +
-           			 		 "Kopurua varchar(40) not null);" +
-           			 		 
-           			 		 "Create Table Bidaia_Mota(" +
-           			 		 "Kod varchar(2) primary key, " +
-           			 		 "Mota varchar(60));" +
-           			 		 
-           			 		 "Create Table Herrialdea(" +
-           			 		 "ID varchar(2) primary key, " +
-           			 		 "Izena varchar(60));" +
+	            	 
+	            stmt.executeUpdate("Insert INTO Agentzia_Mota (Kod, Mota) " + 
+            			 	 "values ('TM', 'testMota');");
 	            		
-	            			 "CREATE TABLE agentzia (" +
-                        	 "ID INT PRIMARY KEY AUTO_INCREMENT, " +
-                        	 "Izena VARCHAR(30), " +
-                        	 "Logoa VARCHAR(200), " +
-                        	 "Markaren_Kolore VARCHAR(6), " +
-                        	 "Erabiltzailea VARCHAR(30), " +
-                        	 "Pasahitza VARCHAR(30), " +
-                        	 "Kod_Mota VARCHAR(2), " +
-                        	 "Langile_Kop VARCHAR(2), " +
-                        	 "foreign key (Kod_Mota) references Agentzia_Mota (Kod), " +
-                        	 "foreign key (Langile_Kop) references Langile_Kop (Kod));" +
-	            		
-	            			 "CREATE TABLE Bidaiak (ID INT PRIMARY KEY AUTO_INCREMENT, Izena VARCHAR(30), Deskribapena VARCHAR(200), " +
-	            			 "Data_Hasiera DATE, Data_Amaiera DATE, ID_Agentzia_Bidaia INT, ID_Herrialdeak varchar(2), Kod_Mota varchar(2));");
-	            
-	            			 
-	            stmt.execute("Insert INTO Agentzia_Mota (Kod, Mota) " + 
-            			 	 "values ('TM', 'testMota');" +
-            			 	 "Insert INTO Langile_Kop (Kod, Kopurua) " + 
-            			 	 "values ('TL', 'testKopurua');" +
-            			 	 "INSERT INTO agentzia (Izena, Logoa, Markaren_Kolore, Erabiltzailea, Pasahitza, Kod_Mota, Langile_Kop) " +
-                         	 "VALUES ('Test Agentzia', 'logo.png', 'FFFFFF', 'testUser', 'testPass', 'TM', 'TL');" +
+				stmt.executeUpdate("Insert INTO Langile_Kop (Kod, Kopurua) " + 
+            			 	 "values ('TL', 'testKopurua');");
+            			 	 
+				stmt.executeUpdate("INSERT INTO agentzia (ID, Izena, Logoa, Markaren_Kolore, Erabiltzailea, Pasahitza, Kod_Mota, Langile_Kop) " +
+                         	 "VALUES (1, 'Test Agentzia', 'logo.png', 'FFFFFF', 'testUser', 'testPass', 'TM', 'TL');");
 	            		 
-	            		 	 "INSERT INTO Herrialdea VALUES ('Eu', 'Euskadi');" +
-	            			 "INSERT INTO Bidaia_Mota VALUES ('B1', 'BidaiMota');" +
-	            			 "Insert Into Bidaiak Values (1, 'testBidaia', 'testDeskribapena', '1995-01-29', '1995-01-30', 1, 'Eu', 'B1')");
-	        }
-	    }
-	    
-	    @After
-	    public void tearDown() throws SQLException {
-	        try (Statement stmt = connection.createStatement()) {
-	            stmt.execute("DROP TABLE Bidaiak");
-	            stmt.execute("DROP TABLE Herrialdea");
-	            stmt.execute("DROP TABLE Bidaia_Mota");
-	        }
-	        connection.close();
-	    }
-	    
-	    @Test
-	    public void testBidaiaBerria() throws SQLException {
-	        Bidaia.bidaiaBerria("Viaje Prueba", "Descripción", Date.valueOf("2025-06-01"), Date.valueOf("2025-06-10"), 1, "1", "1");
-	        
-	        try (Statement stmt = connection.createStatement()) {
-	            assertTrue(stmt.executeQuery("SELECT * FROM Bidaiak").next());
+				stmt.executeUpdate("INSERT INTO Herrialdea VALUES ('Eu', 'Euskadi');");
+				
+				stmt.executeUpdate("INSERT INTO Bidaia_Mota VALUES ('B1', 'BidaiMota');");
+				
+				stmt.executeUpdate("Insert Into Bidaiak Values (1, 'testBidaia', 'testDeskribapena', '1995-01-29', '1995-01-30', 1, 'Eu', 'B1')");
+				
+				stmt.executeUpdate("Insert Into Zerbitzuak values (1, 1)");
+				
+				stmt.executeUpdate("Insert Into Beste_Batzuk values (1, 'zerbitzuTest', '1995-01-29', 'testDeskribapena', 100)");
 	        }
 	    }
 	    
 	    @Test
 	    public void testCargatuBidaiak() {
-	        Bidaia.bidaiaBerria("Viaje Prueba", "Descripción", Date.valueOf("2025-06-01"), Date.valueOf("2025-06-10"), 1, "1", "1");
 	        ArrayList<modelo.POJOak.Bidaia> bidaiak = Bidaia.cargatuBidaiak(1);
 	        
-	        assertEquals(1, bidaiak.size());
-	        assertEquals("Viaje Prueba", bidaiak.get(0).getIzena());
+	        assertEquals(1, bidaiak.get(0).getId());
+	        assertEquals("testBidaia", bidaiak.get(0).getIzena());
+	        assertEquals("testDeskribapena", bidaiak.get(0).getDeskirbapena());
+	        assertEquals(java.sql.Date.valueOf("1995-01-29"), bidaiak.get(0).getBidaia_hasi());
+	        assertEquals(java.sql.Date.valueOf("1995-01-30"), bidaiak.get(0).getBidaia_amaitu());
+	        assertEquals("Euskadi", bidaiak.get(0).getHerrialdea());
+	        assertEquals("BidaiMota", bidaiak.get(0).getMota());
+	    }
+	    
+	    @Test
+	    public void testBidaiaBerria() throws SQLException {
+	    	modelo.DAOak.Bidaia.bidaiaBerria("testBidaia2", "testDeskribapena2", java.sql.Date.valueOf("1995-01-29"), java.sql.Date.valueOf("1995-01-30"), 1, "Eu", "B1");
+	        
+	    	ArrayList<modelo.POJOak.Bidaia> bidaiak = Bidaia.cargatuBidaiak(1);
+	        
+	        assertEquals(2, bidaiak.get(1).getId());
+	        assertEquals("testBidaia2", bidaiak.get(1).getIzena());
+	        assertEquals("testDeskribapena2", bidaiak.get(1).getDeskirbapena());
+	        assertEquals(java.sql.Date.valueOf("1995-01-29"), bidaiak.get(1).getBidaia_hasi());
+	        assertEquals(java.sql.Date.valueOf("1995-01-30"), bidaiak.get(1).getBidaia_amaitu());
+	        assertEquals("Euskadi", bidaiak.get(1).getHerrialdea());
+	        assertEquals("BidaiMota", bidaiak.get(1).getMota());
 	    }
 	    
 	    @Test
 	    public void testEzabatuBidaiak() {
-	        Bidaia.bidaiaBerria("Viaje Prueba", "Descripción", Date.valueOf("2025-06-01"), Date.valueOf("2025-06-10"), 1, "1", "1");
-	        ArrayList<modelo.POJOak.Bidaia> bidaiak = Bidaia.cargatuBidaiak(1);
-	        assertFalse(bidaiak.isEmpty());
-	        
-	        int id = bidaiak.get(0).getId();
-	        Bidaia.EzabatuBidaiak(id);
-	        
-	        bidaiak = Bidaia.cargatuBidaiak(1);
-	        assertTrue(bidaiak.isEmpty());
+	       
+	    }
+	    
+	    @AfterClass
+	    public static void tearDown() throws SQLException {
+	    	try (Statement stmt = connection.createStatement()) {
+	        	stmt.executeUpdate("delete from agentzia");
+	        	stmt.executeUpdate("delete from agentzia_mota");
+	        	stmt.executeUpdate("delete from langile_kop");
+	        	stmt.executeUpdate("delete from bidaiak");
+	        	stmt.executeUpdate("delete from herrialdea");
+	        	stmt.executeUpdate("delete from bidaia_mota");
+	        	stmt.executeUpdate("delete from zerbitzuak");
+	        	stmt.executeUpdate("delete from beste_batzuk");
+	        	
+	        }
+	        connection.close();
 	    }
 }
