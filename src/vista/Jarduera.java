@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -21,6 +22,7 @@ public class Jarduera extends JFrame {
 	private JTextField textEkitaldiIzena;
 	private JTextField textPrezioa;
 	private JTextField textEkitaldiMota;
+	private SimpleDateFormat formatua = new SimpleDateFormat("yyyy-MM-dd");
 
 	/**
 	 * Launch the application.
@@ -86,8 +88,32 @@ public class Jarduera extends JFrame {
 		JButton btnGorde = new JButton("Gorde");
 		btnGorde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textEkitaldiIzena.getText().equals("")&&textAreaDeskripzioa.getText().equals("")&&textPrezioa.getText().equals("")&&data.getDate()!=null) {
-					
+				if(!textEkitaldiIzena.getText().equals("")&&!textAreaDeskripzioa.getText().equals("")&&!textPrezioa.getText().equals("")&&data.getDate()!=null) {
+					try {
+						int prezioa = Integer.parseInt(textPrezioa.getText());
+						modelo.DAOak.Zerbitzua.zerbitzuBerria(erabakitakoIDBidaia);
+						modelo.DAOak.Zerbitzua.jardueraBerria(modelo.DAOak.Zerbitzua.zerbitzuBerriarenID(erabakitakoIDBidaia), textEkitaldiIzena.getText(),
+								java.sql.Date.valueOf(formatua.format(data.getDate())), textAreaDeskripzioa.getText(), prezioa);
+						for (int i = 0; i < bidaiak.size(); i++) {
+							if (bidaiak.get(i).getId()==erabakitakoIDBidaia) {
+								bidaiak.get(i).setZerbitzuak(modelo.DAOak.Zerbitzua.cargatuZerbitzuak(erabakitakoIDBidaia));
+							}
+						}
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								try {
+									BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak(erabiltzaile);
+									frame.setVisible(true);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+		                    }
+						});
+						dispose();
+					} catch (Exception e2) {
+						lblDatuakBete.setText("Prezioa zenbaki bat izan behar da");
+						lblDatuakBete.setVisible(true);
+					}
 				} else {
 					lblDatuakBete.setVisible(true);
 				}

@@ -65,8 +65,8 @@ public class Zerbitzua {
 	}
 	
 	public static void zerbitzuBerria(int ID_Bidaiak) {
-		String sql = "insert into Zerbitzuak"
-				+ "values ('" + ID_Bidaiak + "');";
+		String sql = "insert into Zerbitzuak (ID_Bidaiak) "
+				+ "values (" + ID_Bidaiak + ");";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 		         Statement stmt = conn.createStatement()) {
@@ -79,17 +79,16 @@ public class Zerbitzua {
 	}
 	
 	public static int zerbitzuBerriarenID(int ID_Bidaiak) {
-		int IDBerria = 0;
-		String sql = "select ID"
-				+ " from Zerbitzuak"
-				+ "where ID != (select ID from Ostatua) and ID != (select ID from Beste_Batzuk) and ID != (select ID from Hegaldia)";
+		int IDBerria=0;
+		String sql = "select max(ID) "
+				+ "from Zerbitzuak;";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 	             Statement stmt = conn.createStatement();
 	             ResultSet rs = stmt.executeQuery(sql)) {
 			
 			while (rs.next()) {
-				IDBerria = rs.getInt(IDBerria);
+				IDBerria = rs.getInt(1);
           }
 			
 		} catch (SQLException e) {
@@ -99,9 +98,8 @@ public class Zerbitzua {
 	}
 	
 	public static void ostatuBerria(int ID, String izena, String hiria, double prezioa, Date sarrera_Eguna, Date irteera_Eguna, String logela_mota) {
-		String sql = "insert into Ostatua"
-				+ "values ('" + ID + "', '" + izena + "', '" + hiria + "', '" + prezioa + "', '" + sarrera_Eguna + "', '" + irteera_Eguna + "', '" + logela_mota +
-				"')";
+		String sql = "insert into Ostatua(ID,Hotelaren_Izena,Hiria,Prezioa,Sarrera_Eguna,Irteera_Eguna,Logela_Mota) "
+				+ "values (" +ID+ ", '"+izena+"', '"+hiria+"', "+prezioa+", '"+sarrera_Eguna+"', '"+irteera_Eguna+"', '"+logela_mota+"')";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 		         Statement stmt = conn.createStatement()) {
@@ -114,8 +112,8 @@ public class Zerbitzua {
 	}
 	
 	public static void jardueraBerria(int ID, String izena, Date eguna, String deskribapena, double prezioa) {
-		String sql = "insert into BesteBatzuk"
-				+ "values ('" + ID + "', '" + izena + "', '" + eguna + "', '" + deskribapena + "', '" + prezioa + "')";
+		String sql = "insert into Beste_Batzuk(ID,Izena,Eguna,Deskribapena,Prezioa) "
+				+ "values (" + ID + ", '" + izena + "', '" + eguna + "', '" + deskribapena + "', '" + prezioa + "')";
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 		         Statement stmt = conn.createStatement()) {
@@ -124,13 +122,19 @@ public class Zerbitzua {
 			
 		} catch (SQLException e) {
             e.printStackTrace();
-        }			
+        }
 	}
 	
-	public static void hegaldiBerria(int ID, String jatorria, String helmuga, String helgaldi_kod, String aerolinea, double prezioa, Date irteera_data, Date irteera_ordua) {
-		String sql = "insert into Hegaldia"
-				+ "values ('" + ID + "', '" + jatorria + "', '" + helmuga + "', '" + helgaldi_kod + "', '" + aerolinea + "', '" + prezioa + "', '" + 
-				irteera_data + "', '" + irteera_ordua + "')";
+	public static void hegaldiBerria(int ID, String izena, String jatorria, String helmuga, String helgaldi_kod, String aerolinea, double prezioa, Date irteera_data, int irteera_ordua, String iraupena, int idbuelta) {
+		String sql;
+		if (idbuelta==-1) {
+			sql = "insert into Hegaldia (ID,Izena,Jatorrizko,Helmuga,Hegaldi_Kod,Aerolinea,Prezioa,Irteera_Data,Irteera_Ordua,Iraupena,ID_buelta)"
+				+"values("+ID+",'"+izena+"','"+jatorria+"','"+helmuga+"','"+helgaldi_kod+"','"+aerolinea+"',"+prezioa+",'"+irteera_data+"',"+irteera_ordua+","+iraupena+",null)";
+		} else {
+			sql = "insert into Hegaldia (ID,Izena,Jatorrizko,Helmuga,Hegaldi_Kod,Aerolinea,Prezioa,Irteera_Data,Irteera_Ordua,Iraupena,ID_buelta)"
+					+"values("+ID+",'"+izena+"','"+jatorria+"','"+helmuga+"','"+helgaldi_kod+"','"+aerolinea+"',"+prezioa+",'"+irteera_data+"',"+irteera_ordua+","+iraupena+","+idbuelta+")";
+		}
+		
 		
 		try (Connection conn = Conexioa.obtenerConexion();
 		         Statement stmt = conn.createStatement()) {

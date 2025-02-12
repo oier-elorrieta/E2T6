@@ -14,6 +14,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -30,6 +31,7 @@ public class Hegaldia extends JFrame {
 	private JTextField textPrezioTotala;
 	private JTextField textHegaldiKodItzuli;
 	private JTextField txtHegaldia;
+	private SimpleDateFormat formatua = new SimpleDateFormat("yyyy-MM-dd");
 
 	/**
 	 * Launch the application.
@@ -115,6 +117,7 @@ public class Hegaldia extends JFrame {
 		
 		ArrayList<String> aireportuak = modelo.DAOak.MasterData.cargatuAireportuak();
 		String[] aireportuakString = aireportuak.toArray(new String[aireportuak.size()]);
+		ArrayList<String> aireportuakKod = modelo.DAOak.MasterData.cargatuAireportuakKod();
 		
 		JComboBox<String> comboBoxHelmugakoAireportua = new JComboBox<>();
 		comboBoxHelmugakoAireportua.setModel(new DefaultComboBoxModel<>(aireportuakString));
@@ -158,6 +161,7 @@ public class Hegaldia extends JFrame {
 		
 		ArrayList<String> aerolineak = modelo.DAOak.MasterData.cargatuAerolinea();
 		String[] aerolineakString = aerolineak.toArray(new String[aerolineak.size()]);
+		ArrayList<String> aerolineakKod = modelo.DAOak.MasterData.cargatuAerolineaKod();
 		
 		JComboBox<String> comboBoxAerolinea = new JComboBox<>();
 		comboBoxAerolinea.setModel(new DefaultComboBoxModel<>(aerolineakString));
@@ -290,12 +294,37 @@ public class Hegaldia extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				if (comboBoxIbilbidea.getSelectedItem().equals("Joan")) {
-					if (textHIzena.getText().equals("")&&comboBoxIbilbidea.getSelectedItem()!=null&&comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&comboBoxAerolinea.getSelectedItem()!=null&&textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")) {				
+					if (!textHIzena.getText().equals("")&&comboBoxIbilbidea.getSelectedItem()!=null&&comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&
+							comboBoxHelmugakoAireportua.getSelectedItem()!=null&&JoatekoData.getDate()!=null&&!textHegaldiKod.getText().equals("")&&
+							comboBoxAerolinea.getSelectedItem()!=null&&!textIrteeraOrdua.getText().equals("")&&!textIraupena.getText().equals("")&&
+							!textPrezioTotala.getText().equals("")) {				
 						try {
-							@SuppressWarnings("unused")
 							int prezioa = Integer.parseInt(textPrezioTotala.getText());
+							int ireteeraordua = Integer.parseInt(textIrteeraOrdua.getText());
 							modelo.DAOak.Zerbitzua.zerbitzuBerria(erabakitakoIDBidaia);
-							
+							modelo.DAOak.Zerbitzua.hegaldiBerria(modelo.DAOak.Zerbitzua.zerbitzuBerriarenID(erabakitakoIDBidaia),textHIzena.getText(),
+									aireportuakKod.get(comboBoxJatorrizkoaireportua.getSelectedIndex()),
+									aireportuakKod.get(comboBoxHelmugakoAireportua.getSelectedIndex()),
+									textHegaldiKod.getText(),
+									aerolineakKod.get(comboBoxAerolinea.getSelectedIndex()), prezioa,
+									java.sql.Date.valueOf(formatua.format(JoatekoData.getDate())),
+									ireteeraordua, textIraupena.getText(), -1);
+							for (int i = 0; i < bidaiak.size(); i++) {
+								if (bidaiak.get(i).getId()==erabakitakoIDBidaia) {
+									bidaiak.get(i).setZerbitzuak(modelo.DAOak.Zerbitzua.cargatuZerbitzuak(erabakitakoIDBidaia));
+								}
+							}
+							EventQueue.invokeLater(new Runnable() {
+								public void run() {
+									try {
+										BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak(erabiltzaile);
+										frame.setVisible(true);
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+			                    }
+							});
+							dispose();
 						} catch (Exception e2) {
 							lblDatuakBete.setText("Prezioa zenbaki bat izan behar da");
 							lblDatuakBete.setVisible(true);
@@ -305,19 +334,52 @@ public class Hegaldia extends JFrame {
 						lblDatuakBete.setVisible(true);
 					}
 				} else {
-					if (textHIzena.getText().equals("")&&comboBoxIbilbidea.getSelectedItem()!=null&&
+					if (!textHIzena.getText().equals("")&&comboBoxIbilbidea.getSelectedItem()!=null&&
 							comboBoxJatorrizkoaireportua.getSelectedItem()!=null&&comboBoxHelmugakoAireportua.getSelectedItem()!=null&&
-							JoatekoData.getDate()!=null&&textHegaldiKod.getText().equals("")&&comboBoxAerolinea.getSelectedItem()!=null&&
-							textIrteeraOrdua.getText().equals("")&&textIraupena.getText().equals("")&&textPrezioTotala.getText().equals("")&&
+							JoatekoData.getDate()!=null&&!textHegaldiKod.getText().equals("")&&comboBoxAerolinea.getSelectedItem()!=null&&
+							!textIrteeraOrdua.getText().equals("")&&!textIraupena.getText().equals("")&&!textPrezioTotala.getText().equals("")&&
 							comboBoxJatorrizkoaireportuaItzuli.getSelectedItem()!=null&&comboBoxHelmugakoAireportuaItzuli.getSelectedItem()!=null&&
-							ItzultzekoData.getDate()!=null&&textHegaldiKodItzuli.getText().equals("")&&comboBoxAerolineaItzuli.getSelectedItem()!=null&&
-							textItzuleraOrdua.getText().equals("")&&textIraupenaItzuli.getText().equals("")) {						
+							ItzultzekoData.getDate()!=null&&!textHegaldiKodItzuli.getText().equals("")&&comboBoxAerolineaItzuli.getSelectedItem()!=null&&
+							!textItzuleraOrdua.getText().equals("")&&!textIraupenaItzuli.getText().equals("")) {						
 						try {
-							@SuppressWarnings("unused")
 							int prezioa = Integer.parseInt(textPrezioTotala.getText());
-							
+							int ireteeraordua = Integer.parseInt(textIrteeraOrdua.getText());
+							int itzuleeraordua = Integer.parseInt(textItzuleraOrdua.getText());
+							modelo.DAOak.Zerbitzua.zerbitzuBerria(erabakitakoIDBidaia);
+							modelo.DAOak.Zerbitzua.hegaldiBerria(modelo.DAOak.Zerbitzua.zerbitzuBerriarenID(erabakitakoIDBidaia),textHIzena.getText(),
+									aireportuakKod.get(comboBoxJatorrizkoaireportuaItzuli.getSelectedIndex()),
+									aireportuakKod.get(comboBoxHelmugakoAireportuaItzuli.getSelectedIndex()),
+									textHegaldiKodItzuli.getText(),
+									aerolineakKod.get(comboBoxAerolineaItzuli.getSelectedIndex()), prezioa,
+									java.sql.Date.valueOf(formatua.format(ItzultzekoData.getDate())),
+									itzuleeraordua, textIraupenaItzuli.getText(), -1);
+							modelo.DAOak.Zerbitzua.zerbitzuBerria(erabakitakoIDBidaia);
+							modelo.DAOak.Zerbitzua.hegaldiBerria(modelo.DAOak.Zerbitzua.zerbitzuBerriarenID(erabakitakoIDBidaia),textHIzena.getText(),
+									aireportuakKod.get(comboBoxJatorrizkoaireportua.getSelectedIndex()),
+									aireportuakKod.get(comboBoxHelmugakoAireportua.getSelectedIndex()),
+									textHegaldiKod.getText(),
+									aerolineakKod.get(comboBoxAerolinea.getSelectedIndex()), prezioa,
+									java.sql.Date.valueOf(formatua.format(JoatekoData.getDate())),
+									ireteeraordua, textIraupena.getText(), modelo.DAOak.Zerbitzua.zerbitzuBerriarenID(erabakitakoIDBidaia)-1);
+							for (int i = 0; i < bidaiak.size(); i++) {
+								if (bidaiak.get(i).getId()==erabakitakoIDBidaia) {
+									bidaiak.get(i).setZerbitzuak(modelo.DAOak.Zerbitzua.cargatuZerbitzuak(erabakitakoIDBidaia));
+								}
+							}
+							EventQueue.invokeLater(new Runnable() {
+								public void run() {
+									try {
+										BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak(erabiltzaile);
+										frame.setVisible(true);
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+			                    }
+							});
+							dispose();
 						} catch (Exception e2) {
 							lblDatuakBete.setText("Prezioa zenbaki bat izan behar da");
+							lblDatuakBete.setVisible(true);
 						}
 					} else {
 						lblDatuakBete.setText("Datu guztiak bete");

@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -24,6 +25,7 @@ public class Ostatua extends JFrame {
 	private JTextField textHerria;
 	private JTextField textPrezioa;
 	private JTextField textEkitaldiMota;
+	private SimpleDateFormat formatua = new SimpleDateFormat("yyyy-MM-dd");
 
 	/**
 	 * Launch the application.
@@ -74,6 +76,7 @@ public class Ostatua extends JFrame {
 		
 		ArrayList<String> LogelaMota = modelo.DAOak.MasterData.cargatuLogelaMota();
 		String[] logelaMotaString = LogelaMota.toArray(new String[LogelaMota.size()]);
+		ArrayList<String> LogelaMotaKod = modelo.DAOak.MasterData.cargatuLogelaMotaKod();
 		
 		JComboBox<String> comboBoxLogelaMota = new JComboBox<>();
 		comboBoxLogelaMota.setModel(new DefaultComboBoxModel<>(logelaMotaString));
@@ -137,9 +140,35 @@ public class Ostatua extends JFrame {
 		JButton btnGorde = new JButton("Gorde");
 		btnGorde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textEIzena.getText().equals("")&&comboBoxLogelaMota.getSelectedItem()!=null&&textHerria.getText().equals("")&&textPrezioa.getText().equals("")&&JoatekoData.getDate()!=null&&ItzultzekoData.getDate()!=null) {
-					
+				if(!textEIzena.getText().equals("")&&comboBoxLogelaMota.getSelectedItem()!=null&&!textHerria.getText().equals("")&&!textPrezioa.getText().equals("")&&JoatekoData.getDate()!=null&&ItzultzekoData.getDate()!=null) {
+					try {
+						int prezioa = Integer.parseInt(textPrezioa.getText());
+						modelo.DAOak.Zerbitzua.zerbitzuBerria(erabakitakoIDBidaia);
+						modelo.DAOak.Zerbitzua.ostatuBerria(modelo.DAOak.Zerbitzua.zerbitzuBerriarenID(erabakitakoIDBidaia), textEIzena.getText(), textHerria.getText(), prezioa,
+								java.sql.Date.valueOf(formatua.format(JoatekoData.getDate())), java.sql.Date.valueOf(formatua.format(ItzultzekoData.getDate())),
+								LogelaMotaKod.get(comboBoxLogelaMota.getSelectedIndex()));
+						for (int i = 0; i < bidaiak.size(); i++) {
+							if (bidaiak.get(i).getId()==erabakitakoIDBidaia) {
+								bidaiak.get(i).setZerbitzuak(modelo.DAOak.Zerbitzua.cargatuZerbitzuak(erabakitakoIDBidaia));
+							}
+						}
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								try {
+									BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak(erabiltzaile);
+									frame.setVisible(true);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+		                    }
+						});
+						dispose();
+					} catch (Exception e2) {
+						lblDatuakBete.setText("Prezioa zenbaki bat izan behar da");
+						lblDatuakBete.setVisible(true);
+					}
 				} else {
+					lblDatuakBete.setText("Datu guztiak bete");
 					lblDatuakBete.setVisible(true);
 				}
 			}

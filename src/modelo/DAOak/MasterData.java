@@ -28,6 +28,25 @@ public class MasterData {
             return aireportuak;
         }
 	}
+	public static ArrayList<String> cargatuAireportuakKod(){
+		ArrayList<String> aireportuak = new ArrayList<String>();
+		
+		String sql = "select *"
+				+ "from aireportuak";
+		
+		try (Connection conn = Conexioa.obtenerConexion();
+	             Statement stmt = conn.createStatement();
+	             ResultSet rs = stmt.executeQuery(sql)) {
+			
+			while (rs.next()) {
+				aireportuak.add(rs.getString("aireportu"));
+            }
+			return aireportuak;
+		} catch (SQLException e) {
+            e.printStackTrace();
+            return aireportuak;
+        }
+	}
 	public static ArrayList<String> cargatuAerolinea(){
 		ArrayList<String> aerolineak = new ArrayList<String>();
 		
@@ -40,6 +59,25 @@ public class MasterData {
 			
 			while (rs.next()) {
 				aerolineak.add(rs.getString("Izena"));
+            }
+			return aerolineak;
+		} catch (SQLException e) {
+            e.printStackTrace();
+            return aerolineak;
+        }
+	}
+	public static ArrayList<String> cargatuAerolineaKod(){
+		ArrayList<String> aerolineak = new ArrayList<String>();
+		
+		String sql = "select Kod "
+				+ "from Aerolinea";
+		
+		try (Connection conn = Conexioa.obtenerConexion();
+	             Statement stmt = conn.createStatement();
+	             ResultSet rs = stmt.executeQuery(sql)) {
+			
+			while (rs.next()) {
+				aerolineak.add(rs.getString("Kod"));
             }
 			return aerolineak;
 		} catch (SQLException e) {
@@ -211,6 +249,25 @@ public class MasterData {
 			
 			while (rs.next()) {
 				logelaMotak.add(rs.getString("Mota"));
+            }
+			return logelaMotak;
+		} catch (SQLException e) {
+            e.printStackTrace();
+            return logelaMotak;
+        }
+	}
+	public static ArrayList<String> cargatuLogelaMotaKod(){
+		ArrayList<String> logelaMotak = new ArrayList<String>();
+		
+		String sql = "select Kod "
+				+ "from Logela_Mota";
+		
+		try (Connection conn = Conexioa.obtenerConexion();
+	             Statement stmt = conn.createStatement();
+	             ResultSet rs = stmt.executeQuery(sql)) {
+			
+			while (rs.next()) {
+				logelaMotak.add(rs.getString("Kod"));
             }
 			return logelaMotak;
 		} catch (SQLException e) {
