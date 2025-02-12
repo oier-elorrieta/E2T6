@@ -30,7 +30,9 @@ public class BidaiaketaEkitaldiak extends JFrame {
 	private int posizioaEkitaldiak = 0;
 	private int erabakitakolerroaBidaia;
 	private int erabakitakolerroaEkitaldia;
-	public ArrayList<modelo.POJOak.Bidaia> bidaiakTablak = new ArrayList<modelo.POJOak.Bidaia>();
+	private int erabakitakoIDBidaia;
+	private JButton btnEkitaldiBerria;
+	private ArrayList<modelo.POJOak.Bidaia> bidaiakTablak = new ArrayList<modelo.POJOak.Bidaia>();
 
 	/**
 	 * Launch the application.
@@ -81,10 +83,11 @@ public class BidaiaketaEkitaldiak extends JFrame {
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					erabakitakolerroaBidaia = tableBidaiak.getSelectedRow();
+					btnEkitaldiEzabatu.setEnabled(false);
 					if (erabakitakolerroaBidaia != -1) {
 						modelEkitaldiak.setRowCount(0);
-						int erabakitakoID = (int) modelBidaiak.getValueAt(erabakitakolerroaBidaia, 0);
-						posizioaBidaiak=Metodoak.bidaiarenZerbitzuak(bidaiakTablak, erabakitakoID);
+						erabakitakoIDBidaia = (int) modelBidaiak.getValueAt(erabakitakolerroaBidaia, 0);
+						posizioaBidaiak=Metodoak.bidaiarenZerbitzuak(bidaiakTablak, erabakitakoIDBidaia);
 						for (modelo.POJOak.Zerbitzua b : bidaiakTablak.get(posizioaBidaiak).getZerbitzuak()) {
 							if (b.getId_hegaldia()!=-1) {
 								Object[] row = {b.getId_hegaldia(), b.getHegaldiIzena(), "Hegaldia", b.getHegaldiData(), b.getHegaldiPrezioa()};
@@ -97,13 +100,14 @@ public class BidaiaketaEkitaldiak extends JFrame {
 								modelEkitaldiak.addRow(row);
 							}
 						}
+						btnEkitaldiBerria.setEnabled(true);
 						btnBidaiEzabatu.setEnabled(true);
 						btnBidaiEzabatu.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								if (erabakitakolerroaEkitaldia != -1)
 								modelBidaiak.removeRow(erabakitakolerroaBidaia);
 								bidaiakTablak.remove(posizioaBidaiak);
-								modelo.DAOak.Bidaia.EzabatuBidaiak(erabakitakoID);
+								modelo.DAOak.Bidaia.EzabatuBidaiak(erabakitakoIDBidaia);
 								btnBidaiEzabatu.setEnabled(false);
 								modelEkitaldiak.setRowCount(0);
 							}
@@ -115,8 +119,8 @@ public class BidaiaketaEkitaldiak extends JFrame {
 								if (!e.getValueIsAdjusting()) {
 									erabakitakolerroaEkitaldia = tableEkitaldiak.getSelectedRow();
 									if (erabakitakolerroaEkitaldia != -1) {
-										int erabakitakoID = (int) modelBidaiak.getValueAt(erabakitakolerroaEkitaldia, 0);
-										posizioaEkitaldiak = Metodoak.bidaiarenZerbitzuak(bidaiakTablak, erabakitakoID);
+										int erabakitakoIDEkitaldia = (int) modelBidaiak.getValueAt(erabakitakolerroaEkitaldia, 0);
+										posizioaEkitaldiak = Metodoak.bidaiarenZerbitzuak(bidaiakTablak, erabakitakoIDEkitaldia);
 										btnEkitaldiEzabatu.setEnabled(true);
 										btnEkitaldiEzabatu.addActionListener(new ActionListener() {
 											public void actionPerformed(ActionEvent e) {
@@ -172,13 +176,14 @@ public class BidaiaketaEkitaldiak extends JFrame {
 		btnBidaiBerria.setBounds(639, 66, 167, 23);
 		contentPane.add(btnBidaiBerria);
 		
-		JButton btnEkitaldiBerria = new JButton("Ekitaldi Berria");
+		btnEkitaldiBerria = new JButton("Ekitaldi Berria");
+		btnEkitaldiBerria.setEnabled(false);
 		btnEkitaldiBerria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							Zerbitzuak frame = new Zerbitzuak(erabiltzaile);
+							Zerbitzuak frame = new Zerbitzuak(erabiltzaile, bidaiakTablak, erabakitakoIDBidaia);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

@@ -15,8 +15,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
 import java.beans.PropertyChangeEvent;
 import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.Font;
 
 public class BidaiBerria extends JFrame {
 
@@ -26,6 +29,8 @@ public class BidaiBerria extends JFrame {
 	private JTextField textEgunak;
 	private JDateChooser BidaiaHasiera;
 	private JDateChooser BidaiaAmaiera;
+	private ArrayList<modelo.POJOak.Bidaia> bidaiakGorde;
+	private SimpleDateFormat formatua = new SimpleDateFormat("yyyy-MM-dd");
 
 	/**
 	 * Launch the application.
@@ -36,6 +41,9 @@ public class BidaiBerria extends JFrame {
 	 * Create the frame.
 	 */
 	public BidaiBerria(String erabiltzaile, ArrayList<modelo.POJOak.Bidaia> bidaiak) {
+		
+		modelo.POJOak.Agentzia agentzia = modelo.DAOak.Agentzia.cargatuAgentziak(erabiltzaile);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 340);
 		contentPane = new JPanel();
@@ -69,8 +77,14 @@ public class BidaiBerria extends JFrame {
 		contentPane.add(textBidaiarenIzena);
 		textBidaiarenIzena.setColumns(10);
 		
+		ArrayList<String> BidaiMotak = modelo.DAOak.MasterData.cargatuBidaiMota();
+		String[] bidaiaMotakString = BidaiMotak.toArray(new String[BidaiMotak.size()]);
+		ArrayList<String> BidaiMotakKod = modelo.DAOak.MasterData.cargatuBidaiMotaKod();
+		
 		JComboBox<String> comboBoxBidaiarenMota = new JComboBox<>();
-		comboBoxBidaiarenMota.setBounds(189, 65, 150, 20);
+		comboBoxBidaiarenMota.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		comboBoxBidaiarenMota.setModel(new DefaultComboBoxModel<>(bidaiaMotakString));
+		comboBoxBidaiarenMota.setBounds(189, 65, 285, 20);
 		contentPane.add(comboBoxBidaiarenMota);
 		
 		JTextArea textAreaDeskribapena = new JTextArea();
@@ -124,8 +138,13 @@ public class BidaiBerria extends JFrame {
 		lblHerrialde.setBounds(27, 165, 135, 14);
 		contentPane.add(lblHerrialde);
 		
+		ArrayList<String> Herrialdeak = modelo.DAOak.MasterData.cargatuHerrialdeak();
+		String[] herrialdeakString = Herrialdeak.toArray(new String[Herrialdeak.size()]);
+		ArrayList<String> HerrialdeakID = modelo.DAOak.MasterData.cargatuHerrialdeakID();
+		
 		JComboBox<String> comboBoxHerrialde = new JComboBox<String>();
-		comboBoxHerrialde.setBounds(189, 165, 150, 20);
+		comboBoxHerrialde.setModel(new DefaultComboBoxModel<>(herrialdeakString));
+		comboBoxHerrialde.setBounds(189, 165, 224, 20);
 		contentPane.add(comboBoxHerrialde);
 		
 		JLabel lblDatuakBete = new JLabel("Datu guztiak bete");
@@ -140,11 +159,20 @@ public class BidaiBerria extends JFrame {
 				if (!textBidaiarenIzena.getText().equals("")&&!textAreaDeskribapena.getText().equals("")&&comboBoxHerrialde.getSelectedItem()!=null&&comboBoxBidaiarenMota!=null) {
 					if (BidaiaHasiera.getDate()!=null&&BidaiaAmaiera.getDate()!=null) {
 						if (BidaiaAmaiera.getDate().after(BidaiaHasiera.getDate())) {
-							ArrayList<modelo.POJOak.Zerbitzua> Zerbitzuak = null;
-							modelo.POJOak.Bidaia bidaiaBerria = new modelo.POJOak.Bidaia(-1,textBidaiarenIzena.getText(),
-									textAreaDeskribapena.toString(),BidaiaHasiera.getDate(),BidaiaAmaiera.getDate(),comboBoxHerrialde.getSelectedItem().toString(),
-									comboBoxBidaiarenMota.getSelectedItem().toString(),Zerbitzuak);
-							bidaiak.add(bidaiaBerria);
+							modelo.DAOak.Bidaia.bidaiaBerria(textBidaiarenIzena.getText(), textAreaDeskribapena.getText(), java.sql.Date.valueOf(formatua.format(BidaiaHasiera.getDate())) , java.sql.Date.valueOf(formatua.format(BidaiaAmaiera.getDate())), agentzia.getId(), HerrialdeakID.get(comboBoxHerrialde.getSelectedIndex()), BidaiMotakKod.get(comboBoxBidaiarenMota.getSelectedIndex()));
+							bidaiakGorde = modelo.DAOak.Bidaia.cargatuBidaiak(agentzia.getId());
+							
+							EventQueue.invokeLater(new Runnable() {
+								public void run() {
+									try {
+										BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak(erabiltzaile);
+										frame.setVisible(true);
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+			                    }
+							});
+							dispose();
 						}
 					} else {
 						lblDatuakBete.setVisible(true);
@@ -156,6 +184,8 @@ public class BidaiBerria extends JFrame {
 		});
 		btnGorde.setBounds(27, 270, 89, 23);
 		contentPane.add(btnGorde);
+		
+		bidaiak = bidaiakGorde;
 		
 		JButton btnItzuli = new JButton("Itzuli");
 		btnItzuli.addActionListener(new ActionListener() {

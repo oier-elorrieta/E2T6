@@ -13,7 +13,9 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class AgentziaBerria extends JFrame {
 
@@ -28,18 +30,6 @@ public class AgentziaBerria extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AgentziaBerria frame = new AgentziaBerria();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -99,20 +89,40 @@ public class AgentziaBerria extends JFrame {
 		contentPane.add(lblDatuakBete);
 		lblDatuakBete.setVisible(false);
 		
+		ArrayList<String> LangileKopuru = modelo.DAOak.MasterData.cargatuLangileKopurua();
+		String[] langileKopuruStrings = LangileKopuru.toArray(new String[LangileKopuru.size()]);
+		ArrayList<String> LangileKopuruKod = modelo.DAOak.MasterData.cargatuLangileKopuruaKod();
+		
 		JComboBox<String> comboBoxLangileKopurua = new JComboBox<>();
+		comboBoxLangileKopurua.setModel(new DefaultComboBoxModel<>(langileKopuruStrings));
 		comboBoxLangileKopurua.setBounds(243, 140, 196, 22);
 		contentPane.add(comboBoxLangileKopurua);
 		
+		ArrayList<String> AgentziaMota = modelo.DAOak.MasterData.cargatuAgentziaMota();
+		String[] agentziaMotaStrings = AgentziaMota.toArray(new String[AgentziaMota.size()]);
+		ArrayList<String> AgentziaMotaKod = modelo.DAOak.MasterData.cargatuAgentziaMotaKod();
+		
 		JComboBox<String> comboBoxAgentziaMota = new JComboBox<>();
+		comboBoxAgentziaMota.setModel(new DefaultComboBoxModel<>(agentziaMotaStrings));
 		comboBoxAgentziaMota.setBounds(243, 182, 196, 22);
 		contentPane.add(comboBoxAgentziaMota);
 		
 		JButton btnGorde = new JButton("Gorde");
 		btnGorde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!textIzena.getText().equals("")&&!textMarkaKolorea.getText().equals("")&&comboBoxLangileKopurua.getSelectedItem()!=null&&comboBoxAgentziaMota.getSelectedItem()!=null&&!textLogoa.getText().equals("")&&!textErabiltzailea.getText().equals("")&&!textPasahitza.getText().equals("")) {
-					modelo.POJOak.Agentzia AgentziaBerria = new modelo.POJOak.Agentzia(-1,textIzena.getText(),textLogoa.getText(),textMarkaKolorea.getText(),textErabiltzailea.getText(),textPasahitza.getText(),comboBoxLangileKopurua.getSelectedItem().toString(),comboBoxAgentziaMota.getSelectedItem().toString());
-					modelo.DAOak.Agentzia.agentziaBerria(AgentziaBerria.getIzena(), AgentziaBerria.getLogoa(), AgentziaBerria.getMarkaKolorea(), AgentziaBerria.getErabiltzailea(), AgentziaBerria.getPasahitza(), AgentziaBerria.getMota(), AgentziaBerria.getLangileKop());
+				if (!textIzena.getText().equals("")&&!textMarkaKolorea.getText().equals("")&&comboBoxLangileKopurua.getSelectedItem()!=null&&comboBoxAgentziaMota.getSelectedItem()!=null&&!textLogoa.getText().equals("")&&!textErabiltzailea.getText().equals("")&&!textPasahitza.getText().equals("")) {		
+					modelo.DAOak.Agentzia.agentziaBerria(textIzena.getText(), textLogoa.getText(), textMarkaKolorea.getText(), textErabiltzailea.getText(),textPasahitza.getText(), AgentziaMotaKod.get(comboBoxAgentziaMota.getSelectedIndex()), LangileKopuruKod.get(comboBoxLangileKopurua.getSelectedIndex()));
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								Login frame = new Login();
+								frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+	                    }
+					});
+					dispose();
 				} else {
 					lblDatuakBete.setVisible(true);
 				}
