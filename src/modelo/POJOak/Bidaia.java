@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Bidaia {
 	
+	//atributoak
 	private int id;
 	private String izena;
 	private String deskirbapena;
@@ -15,6 +16,7 @@ public class Bidaia {
 	private String mota;
 	private ArrayList<Zerbitzua> Zerbitzuak;
 	
+	//sortzailea sqlrekin
 	public Bidaia(int id, String izena, String deskirbapena, java.sql.Date bidaia_hasi, java.sql.Date bidaia_amaitu, String herrialdea, String mota, ArrayList<Zerbitzua> Zerbitzuak) {
 		this.id = id;
 		this.izena = izena;
@@ -25,6 +27,7 @@ public class Bidaia {
 		this.mota = mota;
 		this.setZerbitzuak(Zerbitzuak);
 	}
+	//sortzaile normala
 	public Bidaia(int id, String izena, String deskirbapena, Date bidaia_hasi, Date bidaia_amaitu, String herrialdea, String mota, ArrayList<Zerbitzua> Zerbitzuak) {
 		this.id = id;
 		this.izena = izena;
@@ -36,10 +39,12 @@ public class Bidaia {
 		this.setZerbitzuak(Zerbitzuak);
 	}
 	
+	//sortzailea
 	public Bidaia() {
 
 	}
 
+	//Getter eta Setterrak
 	public int getId() {
 		return id;
 	}
@@ -104,6 +109,7 @@ public class Bidaia {
 		Zerbitzuak = zerbitzuak;
 	}
 	
+	//ToStringa
 	@Override
 	public String toString() {
 		return "Bidaia [id=" + id + ", izena=" + izena + ", deskirbapena=" + deskirbapena + ", bidaia_hasi="

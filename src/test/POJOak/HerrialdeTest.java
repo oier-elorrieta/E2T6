@@ -10,6 +10,7 @@ public class HerrialdeTest {
 
 	private Herrialde herrialde;
 
+	//Herrialde sortzailea konprobatzen du
     @Test
     public void testHerrialdeConstructor() {
     	herrialde = new Herrialde("ES", "Espainia");
@@ -17,6 +18,7 @@ public class HerrialdeTest {
         assertEquals("Espainia", herrialde.getIzena());
     }
 
+    //Setterrak eta Getterrak konprobatzen du
     @Test
     public void testSetAndGetId() {
     	herrialde = new Herrialde("ES", "Espainia");

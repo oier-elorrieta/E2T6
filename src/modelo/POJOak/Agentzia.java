@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Agentzia {
 	
+	//Agentziaren atributo guztiak
 	private int id;
 	private String izena;
 	private String logoa;
@@ -13,6 +14,7 @@ public class Agentzia {
 	private String langileKop;
 	private String mota;	
 
+	//agentziaren sortzailea
 	public Agentzia(int id, String izena, String logoa, String markaKolorea, String erabiltzailea, String pasahitza,
 			String langileKop, String mota) {
 		this.id = id;
@@ -24,11 +26,13 @@ public class Agentzia {
 		this.langileKop = langileKop;
 		this.mota = mota;
 	}
-
+	
+	//agentziaren beste sortzailea
 	public Agentzia() {
 		// TODO Auto-generated constructor stub
 	}
 
+	//Agentziaren getter eta setter guztiak
 	public int getId() {
 		return id;
 	}
@@ -93,6 +97,7 @@ public class Agentzia {
 		this.mota = mota;
 	}
 
+	//Agentziaren toString
 	@Override
 	public String toString() {
 		return "Agentzia [id=" + id + ", izena=" + izena + ", logoa=" + logoa + ", markaKolorea=" + markaKolorea

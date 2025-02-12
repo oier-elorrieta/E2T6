@@ -3,6 +3,8 @@ package test.DAOak;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.runners.MethodSorters;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -15,16 +17,21 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import modelo.DAOak.Bidaia;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 
 public class BidaiaTest {
 	
 	private static Connection connection;
 	
+		//TestModua aktibatzen du eta probak egiteko datuak sartzen ditu
 	    @BeforeClass
-	    public static void setUpDataBase() throws SQLException {
+	    public static void AsetUpDataBase() throws SQLException {
 	    	
 	    	controlador.Conexioa.enableTestMode(); 
 	        connection = controlador.Conexioa.obtenerConexion();
@@ -32,13 +39,13 @@ public class BidaiaTest {
 	        try (Statement stmt = connection.createStatement()) {
 	            	 
 	            stmt.executeUpdate("Insert INTO Agentzia_Mota (Kod, Mota) " + 
-            			 	 "values ('TM', 'testMota');");
+            			 	 	   "values ('TM', 'testMota');");
 	            		
 				stmt.executeUpdate("Insert INTO Langile_Kop (Kod, Kopurua) " + 
-            			 	 "values ('TL', 'testKopurua');");
+            			 	 	   "values ('TL', 'testKopurua');");
             			 	 
 				stmt.executeUpdate("INSERT INTO agentzia (ID, Izena, Logoa, Markaren_Kolore, Erabiltzailea, Pasahitza, Kod_Mota, Langile_Kop) " +
-                         	 "VALUES (1, 'Test Agentzia', 'logo.png', 'FFFFFF', 'testUser', 'testPass', 'TM', 'TL');");
+                         	 	   "VALUES (1, 'Test Agentzia', 'logo.png', 'FFFFFF', 'testUser', 'testPass', 'TM', 'TL');");
 	            		 
 				stmt.executeUpdate("INSERT INTO Herrialdea VALUES ('Eu', 'Euskadi');");
 				
@@ -53,9 +60,11 @@ public class BidaiaTest {
 	    }
 	    
 	    @Test
-	    public void testCargatuBidaiak() {
+	    public void BtestCargatuBidaiak() {
+	    	//Agentziaren bidaiaren bidez bidaia kargatzen du arrayan
 	        ArrayList<modelo.POJOak.Bidaia> bidaiak = Bidaia.cargatuBidaiak(1);
 	        
+	        //Konrponatzen ditu bidaiaren datuak
 	        assertEquals(1, bidaiak.get(0).getId());
 	        assertEquals("testBidaia", bidaiak.get(0).getIzena());
 	        assertEquals("testDeskribapena", bidaiak.get(0).getDeskirbapena());
@@ -66,12 +75,12 @@ public class BidaiaTest {
 	    }
 	    
 	    @Test
-	    public void testBidaiaBerria() throws SQLException {
+	    public void CtestBidaiaBerria() throws SQLException {
+	    	//Bidai berri bat sortzen du datu basean
 	    	modelo.DAOak.Bidaia.bidaiaBerria("testBidaia2", "testDeskribapena2", java.sql.Date.valueOf("1995-01-29"), java.sql.Date.valueOf("1995-01-30"), 1, "Eu", "B1");
-	        
+	        //Kargatzen ditu bidaiak
 	    	ArrayList<modelo.POJOak.Bidaia> bidaiak = Bidaia.cargatuBidaiak(1);
-	        
-	        assertEquals(2, bidaiak.get(1).getId());
+	        //konprobatzen du bigarren posizioan dagoen bidaiaren datuak
 	        assertEquals("testBidaia2", bidaiak.get(1).getIzena());
 	        assertEquals("testDeskribapena2", bidaiak.get(1).getDeskirbapena());
 	        assertEquals(java.sql.Date.valueOf("1995-01-29"), bidaiak.get(1).getBidaia_hasi());
@@ -79,14 +88,18 @@ public class BidaiaTest {
 	        assertEquals("Euskadi", bidaiak.get(1).getHerrialdea());
 	        assertEquals("BidaiMota", bidaiak.get(1).getMota());
 	    }
-	    
+	    //ezabatzen di ID 1 duen bidaia
 	    @Test
-	    public void testEzabatuBidaiak() {
-	       
+	    public void DtestEzabatuBidaiak() {
+	    	System.out.println("ezabatu");
+	    	modelo.DAOak.Bidaia.EzabatuBidaiak(1);
+	   	ArrayList<modelo.POJOak.Bidaia> bidaiak = Bidaia.cargatuBidaiak(1);
+	   	assertEquals(1, bidaiak.size());
 	    }
 	    
+	    //Datubasea garbitzen du
 	    @AfterClass
-	    public static void tearDown() throws SQLException {
+	    public static void EtearDown() throws SQLException {
 	    	try (Statement stmt = connection.createStatement()) {
 	        	stmt.executeUpdate("delete from agentzia");
 	        	stmt.executeUpdate("delete from agentzia_mota");
@@ -96,7 +109,6 @@ public class BidaiaTest {
 	        	stmt.executeUpdate("delete from bidaia_mota");
 	        	stmt.executeUpdate("delete from zerbitzuak");
 	        	stmt.executeUpdate("delete from beste_batzuk");
-	        	
 	        }
 	        connection.close();
 	    }

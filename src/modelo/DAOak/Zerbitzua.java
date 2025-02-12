@@ -34,7 +34,7 @@ public class Zerbitzua {
 						ID_Buelta = 0;
 					}
 					modelo.POJOak.Zerbitzua zerbitzua = new modelo.POJOak.Zerbitzua(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), 
-							rs.getString(5), rs.getString(6), rs.getDouble(7), rs.getDate(8), rs.getDate(9), 
+							rs.getString(5), rs.getString(6), rs.getDouble(7), rs.getDate(8), rs.getTime(9), 
 							rs.getString(10), ID_Buelta);
 					zerbitzuak.add(zerbitzua);
 				} else if (rs.getInt(12) != 0) {

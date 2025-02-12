@@ -18,12 +18,14 @@ public class BidaiaTest {
 	private ArrayList<Zerbitzua> zerbitzuak;
 	private Bidaia bidaia;;
     
+	//Kargatzen zerbitzu arraylist bat eta objetu bat
     @Before
     public void setUp() {
     	zerbitzuak = new ArrayList<Zerbitzua>();
         bidaia = new Bidaia(1, "Bidaia1", "Deskribapena1", new Date(0), new Date(0), "Espainia", "Turismo", zerbitzuak);
     }
     
+    //Datuak konprobatzen ditu
     @Test
     public void testBidaia() {
         assertNotNull(bidaia);
@@ -37,6 +39,7 @@ public class BidaiaTest {
 		assertEquals(zerbitzuak, bidaia.getZerbitzuak());
     }
     
+    //Setterrak eta Getterrak konprobatzen ditu
     @Test
     public void testSetId() {
         bidaia.setId(2);

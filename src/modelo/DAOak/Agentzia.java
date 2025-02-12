@@ -9,6 +9,11 @@ import controlador.Conexioa;
 
 public class Agentzia {
 
+	/**
+	 * Agentzia bat kargatzeko datubasetik programera
+	 * @param erabiltzaile usuarioa sartu duen erabiltzailea
+	 * @return erabiltzaile horren agentzia objetua
+	 */
 	public static modelo.POJOak.Agentzia cargatuAgentziak(String erabiltzaile){
 		modelo.POJOak.Agentzia agentzia = new modelo.POJOak.Agentzia();
 		String sql = "select ID, Izena, Logoa, Markaren_Kolore, Erabiltzailea, Pasahitza, am.Mota, lk.Kopurua "
@@ -37,6 +42,11 @@ public class Agentzia {
         }			
 	}
 	
+	/**
+	 * Datu Basean bilatzen du erabiltzaile bat
+	 * @param erabiltzailea usuarioa sartu duen erabiltzailea
+	 * @return erabiltzaile hori bueltatzen du
+	 */
 	public static String bilatuErabiltzailea(String erabiltzailea) {
 		String erabiltzaileBD = null;
 		String sql = "select Erabiltzailea "
@@ -58,6 +68,11 @@ public class Agentzia {
        }
 	}
 	
+	/**
+	 * 
+	 * @param erabiltzailea
+	 * @return
+	 */
 	public static String bilatuPasahitza(String erabiltzailea) {
 		String pasahithzaBD = null;
 		String sql = "select Pasahitza "
@@ -79,6 +94,7 @@ public class Agentzia {
        }
 	}
 	
+	//Agentzia berri bat sartu datu basean, programa ematen dion parametro guztiekin
 	public static void agentziaBerria(String izena, String logoa, String marka_Kolorea, String erabiltzaile, String pasahitza, String mota, String langile_Kop) {
 		String sql = "insert into Agentzia (Izena, Logoa, Markaren_Kolore, Erabiltzailea, Pasahitza, Kod_Mota, Langile_Kop) "
 				+ "values ('" + izena + "', '" + logoa + "', '" + marka_Kolorea + "', '" + erabiltzaile + "', '" + pasahitza +

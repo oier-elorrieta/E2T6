@@ -12,6 +12,7 @@ import controlador.Conexioa;
 
 public class Aireportu {
 
+	//Aireportuen datu guztiak kargatzen ditu Arraylist batean
 	public static ArrayList<modelo.POJOak.Aireportu> cargatuAireportuak(){
 		ArrayList<modelo.POJOak.Aireportu> aireportuak = new ArrayList<>();
 		String sql = "SELECT * FROM Aireportuak";

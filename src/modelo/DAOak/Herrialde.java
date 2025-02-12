@@ -11,6 +11,7 @@ import controlador.Conexioa;
 
 public class Herrialde {
 	
+	// ArrayList bat bueltatzen du datubaseko herrialde guztiekin
 	public static ArrayList<modelo.POJOak.Herrialde> cargatuHerrialdeak(){
 		ArrayList<modelo.POJOak.Herrialde> herrialde = new ArrayList<>();
 		String sql = "SELECT * FROM herrialdea";

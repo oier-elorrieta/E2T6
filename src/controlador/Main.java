@@ -14,10 +14,8 @@ import vista.OngiEtorri;
 public class Main {
 	
 	static OngiEtorri ongiEtorri = new OngiEtorri();
-	static Login login = new Login();
-	static AgentziaBerria agentziaBerria = new AgentziaBerria();
-	//static BidaiaketaEkitaldiak bidaiaketaEkitaldiak = new BidaiaketaEkitaldiak();
 
+	//Programa hasieratzen du eta lehengo JFrame erakusten du
 	public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {

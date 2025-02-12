@@ -17,7 +17,7 @@ public class OngiEtorri extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * Sortzen du ongietorri frame
 	 */
 	public OngiEtorri() {
 		setTitle("Ongi Etorri");
@@ -29,6 +29,7 @@ public class OngiEtorri extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//Botoiarekin pasatzen da Login atalera
 		JButton btnOngiEtorri = new JButton("Ongi Etorri");
 		btnOngiEtorri.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

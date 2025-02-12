@@ -11,11 +11,13 @@ public class AgentziaTest {
 
 	private Agentzia agentzia;
     
+	//Sortzen du agentzia objetu bat
     @Before
     public void setUp() {
         agentzia = new Agentzia(1, "Elorrieta", "logo.png", "#FFFFFF", "admin", "admin", "L1", "A2");
     }
     
+    //Konprobatzen du agentziaren datuak
     @Test
     public void testAgentzia() {
         assertNotNull(agentzia);
@@ -29,6 +31,7 @@ public class AgentziaTest {
         assertEquals("A2", agentzia.getMota());
     }
     
+    //Setterrak eta Getterrak conprobatzen ditu
     @Test
     public void testSetId() {
         agentzia.setId(2);

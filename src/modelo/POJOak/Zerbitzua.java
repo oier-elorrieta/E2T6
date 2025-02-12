@@ -1,5 +1,6 @@
 package modelo.POJOak;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Zerbitzua{
@@ -13,7 +14,7 @@ public class Zerbitzua{
 	private String kod;
 	private String aerolinea;
 	private double hegaldiPrezioa;
-	private Date hegaldiIrteera;
+	private Time hegaldiIrteera;
 	private String hegaldiIraupena;
 	private int id_buelta;
 
@@ -33,8 +34,9 @@ public class Zerbitzua{
 	private Date jardueraData;
 	private double jardueraPrezioa;
 	
+	//Hegaldiaren sortzailea
 	public Zerbitzua(int id_hegaldia, String hegaldiIzena, String jatorria, String helmuga, String kod,
-			String aerolinea, double hegaldiPrezioa, Date hegaldiData, Date hegaldiIrteera, String hegaldiIraupena,
+			String aerolinea, double hegaldiPrezioa, Date hegaldiData, Time hegaldiIrteera, String hegaldiIraupena,
 			int id_buelta) {
 		this.id_hegaldia = id_hegaldia;
 		this.hegaldiIzena = hegaldiIzena;
@@ -52,6 +54,7 @@ public class Zerbitzua{
 		
 	}
 
+	//Ostatuaren sortzailea
 	public Zerbitzua(int idOstatua, String ostatuIzena, String hiria, double ostatuPrezioa, Date ostatuSarrera,
 			Date ostatuIrteera, String logela) {
 		this.idOstatua = idOstatua;
@@ -65,6 +68,7 @@ public class Zerbitzua{
 		this.jardueraId=-1;
 	}
 
+	//Jardueraren sortzailea
 	public Zerbitzua(int jardueraId, String jardueraIzena, Date jardueraData,  String jardueraDeskribapena, double jardueraPrezioa) {
 		this.jardueraId = jardueraId;
 		this.jardueraIzena = jardueraIzena;
@@ -75,8 +79,7 @@ public class Zerbitzua{
 		this.idOstatua=-1;
 	}
 
-	
-	
+	//Getter eta Setterrak
 	public int getId_hegaldia() {
 		return id_hegaldia;
 	}
@@ -145,7 +148,7 @@ public class Zerbitzua{
 		return hegaldiIrteera;
 	}
 
-	public void setHegaldiIrteera(Date hegaldiIrteera) {
+	public void setHegaldiIrteera(Time hegaldiIrteera) {
 		this.hegaldiIrteera = hegaldiIrteera;
 	}
 
@@ -261,6 +264,7 @@ public class Zerbitzua{
 		this.jardueraPrezioa = jardueraPrezioa;
 	}
 
+	//ToString
 	@Override
 	public String toString() {
 		return "Zerbitzua [id_hegaldia=" + id_hegaldia + ", hegaldiIzena=" + hegaldiIzena + ", jatorria=" + jatorria
