@@ -6,9 +6,12 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 
@@ -17,21 +20,6 @@ public class Login extends JFrame {
 	private JTextField textAgentzia;
 	private JTextField textPasahitza;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -66,11 +54,53 @@ public class Login extends JFrame {
 		contentPane.add(textPasahitza);
 		
 		JButton btnSaioaHazi = new JButton("Saioa hazi");
+		btnSaioaHazi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String erabiltzailea = textAgentzia.getText();
+				String pasahitza = textPasahitza.getText();
+				String erabiltzaileBD = modelo.DAOak.Agentzia.bilatuErabiltzailea(erabiltzailea);
+				String pasahitzaBD = modelo.DAOak.Agentzia.bilatuPasahitza(erabiltzailea);
+				if(erabiltzailea.equals(erabiltzaileBD)) {
+					if(pasahitza.equals(pasahitzaBD)) {
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								try {
+									BidaiaketaEkitaldiak frame = new BidaiaketaEkitaldiak(erabiltzailea);
+									frame.setVisible(true);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+		                    }
+						});
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "Pasahitza ez da zuzena.");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Erabiltzailea ez da existitzen.");
+				}
+			}
+		});
 		btnSaioaHazi.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnSaioaHazi.setBounds(75, 161, 158, 23);
 		contentPane.add(btnSaioaHazi);
 		
 		JButton btnAgentziaBerria = new JButton("Agentzia berria");
+		btnAgentziaBerria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							AgentziaBerria frame = new AgentziaBerria();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+                    }
+				});
+				dispose();
+			}
+		});
 		btnAgentziaBerria.setFont(new Font("Arial", Font.PLAIN, 17));
 		btnAgentziaBerria.setBounds(268, 161, 158, 23);
 		contentPane.add(btnAgentziaBerria);

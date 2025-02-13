@@ -1,15 +1,21 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class AgentziaBerria extends JFrame {
 
@@ -18,29 +24,19 @@ public class AgentziaBerria extends JFrame {
 	private JTextField textIzena;
 	private JTextField textMarkaKolorea;
 	private JTextField textLogoa;
+	private JTextField textErabiltzailea;
+	private JTextField textPasahitza;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AgentziaBerria frame = new AgentziaBerria();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	public AgentziaBerria() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 520, 396);
+		setBounds(100, 100, 520, 483);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -87,20 +83,91 @@ public class AgentziaBerria extends JFrame {
 		textLogoa.setBounds(243, 230, 196, 20);
 		contentPane.add(textLogoa);
 		
-		JComboBox comboBoxLangileKopurua = new JComboBox();
+		JLabel lblDatuakBete = new JLabel("Datu guztiak bete");
+		lblDatuakBete.setForeground(new Color(255, 0, 0));
+		lblDatuakBete.setBounds(73, 349, 99, 14);
+		contentPane.add(lblDatuakBete);
+		lblDatuakBete.setVisible(false);
+		
+		ArrayList<String> LangileKopuru = modelo.DAOak.MasterData.cargatuLangileKopurua();
+		String[] langileKopuruStrings = LangileKopuru.toArray(new String[LangileKopuru.size()]);
+		ArrayList<String> LangileKopuruKod = modelo.DAOak.MasterData.cargatuLangileKopuruaKod();
+		
+		JComboBox<String> comboBoxLangileKopurua = new JComboBox<>();
+		comboBoxLangileKopurua.setModel(new DefaultComboBoxModel<>(langileKopuruStrings));
 		comboBoxLangileKopurua.setBounds(243, 140, 196, 22);
 		contentPane.add(comboBoxLangileKopurua);
 		
-		JComboBox comboBoxAgentziaMota = new JComboBox();
+		ArrayList<String> AgentziaMota = modelo.DAOak.MasterData.cargatuAgentziaMota();
+		String[] agentziaMotaStrings = AgentziaMota.toArray(new String[AgentziaMota.size()]);
+		ArrayList<String> AgentziaMotaKod = modelo.DAOak.MasterData.cargatuAgentziaMotaKod();
+		
+		JComboBox<String> comboBoxAgentziaMota = new JComboBox<>();
+		comboBoxAgentziaMota.setModel(new DefaultComboBoxModel<>(agentziaMotaStrings));
 		comboBoxAgentziaMota.setBounds(243, 182, 196, 22);
 		contentPane.add(comboBoxAgentziaMota);
 		
 		JButton btnGorde = new JButton("Gorde");
-		btnGorde.setBounds(101, 291, 139, 28);
+		btnGorde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!textIzena.getText().equals("")&&!textMarkaKolorea.getText().equals("")&&comboBoxLangileKopurua.getSelectedItem()!=null&&comboBoxAgentziaMota.getSelectedItem()!=null&&!textLogoa.getText().equals("")&&!textErabiltzailea.getText().equals("")&&!textPasahitza.getText().equals("")) {		
+					modelo.DAOak.Agentzia.agentziaBerria(textIzena.getText(), textLogoa.getText(), textMarkaKolorea.getText(), textErabiltzailea.getText(),textPasahitza.getText(), AgentziaMotaKod.get(comboBoxAgentziaMota.getSelectedIndex()), LangileKopuruKod.get(comboBoxLangileKopurua.getSelectedIndex()));
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								Login frame = new Login();
+								frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+	                    }
+					});
+					dispose();
+				} else {
+					lblDatuakBete.setVisible(true);
+				}
+			}
+		});
+		btnGorde.setBounds(73, 374, 139, 28);
 		contentPane.add(btnGorde);
 		
 		JButton btnUtzi = new JButton("Utzi");
-		btnUtzi.setBounds(281, 291, 139, 28);
+		btnUtzi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							Login frame = new Login();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+                    }
+				});
+				dispose();
+			}
+		});
+		btnUtzi.setBounds(281, 374, 139, 28);
 		contentPane.add(btnUtzi);
+		
+		JLabel lblPasahitza = new JLabel("Pasahitza");
+		lblPasahitza.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblPasahitza.setBounds(73, 316, 139, 21);
+		contentPane.add(lblPasahitza);
+		
+		JLabel lblErabiltzailea = new JLabel("Erabiltzailea");
+		lblErabiltzailea.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblErabiltzailea.setBounds(73, 273, 139, 21);
+		contentPane.add(lblErabiltzailea);
+		
+		textErabiltzailea = new JTextField();
+		textErabiltzailea.setColumns(10);
+		textErabiltzailea.setBounds(243, 275, 196, 20);
+		contentPane.add(textErabiltzailea);
+		
+		textPasahitza = new JTextField();
+		textPasahitza.setColumns(10);
+		textPasahitza.setBounds(243, 318, 196, 20);
+		contentPane.add(textPasahitza);
 	}
 }
